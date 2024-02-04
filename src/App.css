@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+body,
+#root {
+  height: 100vh;
+}
+
+.ql-container.ql-snow {
+  height: 8rem;
+}
+
+.MuiDataGrid-toolbarContainer.css-128fb87-MuiDataGrid-toolbarContainer,
+.MuiDataGrid-footerContainer.MuiDataGrid-withBorderColor.css-wop1k0-MuiDataGrid-footerContainer {
+  overflow: hidden;
+}
+
+label {
+  margin-top: 6px;
+}
+
+/* 
+::-webkit-scrollbar {
+  width: 0.625rem;
+}
+
+::-webkit-scrollbar-track {
+  background: "red";
+}
+::-webkit-scrollbar-thumb {
+  background: "red";
+} */
