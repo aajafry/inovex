@@ -9,6 +9,7 @@ import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantity
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
+import moment from 'moment';
 import { useLocation } from "react-router-dom";
 import PreviewBrif from "../components/commons/PreviewBrif";
 import PreviewHeader from "../components/commons/PreviewHeader";
@@ -23,8 +24,8 @@ export default function QuotationPreview() {
   />
   return (
     <Box>
-      <PreviewHeader label={`Quotation ID: ${state._id}`} />
-      <PreviewThumbnail src={img2} alt={state._id} />
+      <PreviewHeader label={`Quotation ID: ${state._id.slice(1,6)}`} />
+      <PreviewThumbnail src={img2} alt={state._id.slice(1,6)} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>
@@ -54,12 +55,12 @@ export default function QuotationPreview() {
                 <PreviewProperty
                   icon={<ScheduleIcon />}
                   title="Kick off Date"
-                  subtitle={state.openedAt}
+                  subtitle={moment(state.openedAt).format("MMM DD, YYYY")}
                 />
                 <PreviewProperty
                   icon={<TaskAltIcon />}
                   title="End Date"
-                  subtitle={state.completedAt}
+                  subtitle={moment(state.completedAt).format("MMM DD, YYYY")}
                 />
                 <PreviewProperty
                   icon={<ProductionQuantityLimitsIcon />}

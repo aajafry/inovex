@@ -13,11 +13,13 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import moment from 'moment';
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import useSWR from 'swr';
 import PreviewHeader from "../components/commons/PreviewHeader";
 import { fetcher } from "../utility/fetcher";
+
 
 const URL = process.env.COMPANY_ENDPOINT;
 
@@ -37,9 +39,9 @@ export default function InvoicePreview() {
         <Box className="my-2  mx-4">
           <Typography variant="subtitle2" className=" font-semibold">
             {" "}
-            Order ID{" "}
+            Invoice ID{" "}
           </Typography>
-          <Typography variant="body2"> {state._id} </Typography>
+          <Typography variant="body2"> {state._id.slice(1,6)} </Typography>
         </Box>
 
         <Box className=" mx-4 flex justify-between items-end">
@@ -83,21 +85,21 @@ export default function InvoicePreview() {
               {" "}
               Order ID{" "}
             </Typography>
-            <Typography variant="body2">{state.orderId._id}</Typography>
+            <Typography variant="body2">{state.orderId._id.slice(1,6)}</Typography>
           </Grid>
           <Grid item xs={3} className=" border-e-2">
             <Typography variant="button" className=" font-semibold">
               {" "}
               Created Date{" "}
             </Typography>
-            <Typography variant="body2">{state.createdAt}</Typography>
+            <Typography variant="body2">{moment(state.createdAt).format('MMM DD, YYYY')}</Typography>
           </Grid>
           <Grid item xs={3} className=" ">
             <Typography variant="button" className=" font-semibold">
               {" "}
               Due Date{" "}
             </Typography>
-            <Typography variant="body2">{state.createdAt}</Typography>
+            <Typography variant="body2">{moment(state.createdAt).format('MMM DD, YYYY')}</Typography>
           </Grid>
         </Grid>
 

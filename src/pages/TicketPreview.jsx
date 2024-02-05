@@ -8,6 +8,7 @@ import Grid3x3Icon from "@mui/icons-material/Grid3x3";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
+import moment from "moment";
 import { useLocation } from "react-router-dom";
 import PreviewBrif from "../components/commons/PreviewBrif";
 import PreviewHeader from "../components/commons/PreviewHeader";
@@ -22,8 +23,8 @@ export default function TicketPreview() {
   />
   return (
     <Box>
-      <PreviewHeader label={`Order ID: ${state._id}`} />
-      <PreviewThumbnail src={img3} alt={state._id} />
+      <PreviewHeader label={`Order ID: ${state._id.slice(1,6)}`} />
+      <PreviewThumbnail src={img3} alt={state._id.slice(1,6)} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>
@@ -48,12 +49,12 @@ export default function TicketPreview() {
                 <PreviewProperty
                   icon={<EventIcon />}
                   title="Created"
-                  subtitle={state.createdAt}
+                  subtitle={moment(state.createdAt).format("MMM DD, YYYY")}
                 />
                 <PreviewProperty
                   icon={<Grid3x3Icon />}
                   title="Order ID"
-                  subtitle={state._id}
+                  subtitle={state._id.slice(1, 6)}
                 />
                 <PreviewProperty
                   icon={<PriorityHighIcon />}

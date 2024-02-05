@@ -10,11 +10,13 @@ import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantity
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
+import moment from 'moment';
 import { useLocation } from "react-router-dom";
 import PreviewBrif from "../components/commons/PreviewBrif";
 import PreviewHeader from "../components/commons/PreviewHeader";
 import PreviewProperty from "../components/commons/PreviewProperty";
 import PreviewThumbnail from "../components/commons/PreviewThumbnail";
+
 
 export default function OrderPreview() {
   let { state } = useLocation();
@@ -24,7 +26,7 @@ export default function OrderPreview() {
   />
   return (
     <Box>
-      <PreviewHeader label={`Order ID: ${state._id}`} />
+      <PreviewHeader label={`Order ID: ${state._id.slice(1,6)}`} />
       <PreviewThumbnail src={img3} alt={state._id} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
@@ -60,12 +62,12 @@ export default function OrderPreview() {
                 <PreviewProperty
                   icon={<ScheduleIcon />}
                   title="Kick off Date"
-                  subtitle={state.openedAt}
+                  subtitle={moment(state.openedAt).format("MMM DD, YYYY")}
                 />
                 <PreviewProperty
                   icon={<TaskAltIcon />}
                   title="End Date"
-                  subtitle={state.completedAt}
+                  subtitle={moment(state.completedAt).format("MMM DD, YYYY")}
                 />
                 <PreviewProperty
                   icon={<ProductionQuantityLimitsIcon />}
