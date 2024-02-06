@@ -3,7 +3,7 @@
 import { Box } from "@mui/material";
 import { GridToolbar } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
-import { EmployeeColumns, EmployeeRows } from "../../apps/DataStorage";
+import { EmployeeColumns } from "../../apps/DataStorage";
 import StripedDataGrid from "../commons/StripedDataGrid";
 
 export default function EmployeeTable({employees}) {

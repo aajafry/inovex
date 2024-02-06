@@ -318,4 +318,3 @@ export {
   QuotationColumns,
   TicketColumns
 };
-

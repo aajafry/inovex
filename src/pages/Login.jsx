@@ -25,7 +25,7 @@ export default function Login() {
     try {
       const response = await axios.post(URL, data);
       // If successful, update the data with SWR
-      mutate(response.data, false);
+      mutate(response?.data, false);
     }
      catch (error) {
       console.error("Error submitting form:", error.message);
