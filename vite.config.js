@@ -7,7 +7,7 @@ dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/inovex",
+  base: "./",
   plugins: [react({
     jsxRuntime: 'classic' // Add this line
   }), 
