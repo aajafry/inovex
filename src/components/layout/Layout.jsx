@@ -5,7 +5,7 @@ import MuiAppBar from "@mui/material/AppBar";
 import MuiDrawer from "@mui/material/Drawer";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
-import Header from "../Header/Header";
+import Header from "../header/Header";
 import AsideDrawer from "../aside/AsideDrawer";
 
 const drawerWidth = 240;
