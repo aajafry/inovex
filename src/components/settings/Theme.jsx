@@ -1,5 +1,5 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import { ColorPicker } from "material-ui-color";
+import { MuiColorInput } from 'mui-color-input';
 import { useDispatch, useSelector } from "react-redux";
 import {
   setPraimaryColor,
@@ -27,9 +27,9 @@ export default function Theme() {
             </Typography>
           </Box>
           <Box>
-            <ColorPicker
+            <MuiColorInput
               value={primaryColor}
-              onChange={(event) => dispatch(setPraimaryColor(`#${event.hex}`))}
+              onChange={(event) => dispatch(setPraimaryColor(event))}
               deferred
             />
           </Box>
@@ -44,9 +44,9 @@ export default function Theme() {
             The Secondary Color will apply to the Menu, Sidebar & highlighted positions background.            </Typography>
           </Box>
           <Box>
-            <ColorPicker
+            <MuiColorInput
               value={secondaryColor}
-              onChange={(event) => dispatch(setSecondaryColor(`#${event.hex}`))}
+              onChange={(event) => dispatch(setSecondaryColor(event))}
               deferred
             />
           </Box>
@@ -62,9 +62,9 @@ export default function Theme() {
             </Typography>
           </Box>
           <Box>
-            <ColorPicker
+            <MuiColorInput
               value={textColor}
-              onChange={(event) => dispatch(setTextColor(`#${event.hex}`))}
+              onChange={(event) => dispatch(setTextColor(event))}
               deferred
             />
           </Box>

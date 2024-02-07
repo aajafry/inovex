@@ -17,6 +17,9 @@ body,
 .MuiDataGrid-footerContainer.MuiDataGrid-withBorderColor.css-wop1k0-MuiDataGrid-footerContainer {
   overflow: hidden;
 }
+.css-ittuaa-MuiInputAdornment-root {
+  height: auto;
+}
 
 label {
   margin-top: 6px;
