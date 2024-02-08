@@ -24,6 +24,8 @@ import {
 } from "../src/pages/Index";
 import "./App.css";
 import { withLayout } from "./components/layout/withLayout";
+import { withProtected } from "./components/layout/withProtected";
+
 import themeStore from "./features/theme/themeStore";
 
 function App() {
@@ -34,52 +36,52 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
 
-          <Route path="/" element={withLayout(Dashboard)} />
-          <Route path="/dashboard" element={withLayout(Dashboard)} />
+          <Route path="/" element={withProtected(withLayout(Dashboard))} />
+          <Route path="/dashboard" element={withProtected(withLayout(Dashboard))} />
 
-          <Route path="/services" element={withLayout(Services)} />
+          <Route path="/services" element={withProtected(withLayout(Services))} />
           <Route
             path="/servicePreview/:slug"
-            element={withLayout(ServicePreview)}
+            element={withProtected(withLayout(ServicePreview))}
           />
 
-          <Route path="/clients" element={withLayout(Clients)} />
+          <Route path="/clients" element={withProtected(withLayout(Clients))} />
           <Route
             path="/clientPreview/:slug"
-            element={withLayout(ClientPreview)}
+            element={withProtected(withLayout(ClientPreview))}
           />
 
-          <Route path="/tickets" element={withLayout(Tickets)} />
+          <Route path="/tickets" element={withProtected(withLayout(Tickets))} />
           <Route
             path="/ticketPreview/:slug"
-            element={withLayout(TicketPreview)}
+            element={withProtected(withLayout(TicketPreview))}
           />
 
-          <Route path="/orders" element={withLayout(Orders)} />
+          <Route path="/orders" element={withProtected(withLayout(Orders))} />
           <Route
             path="/orderPreview/:slug"
-            element={withLayout(OrderPreview)}
+            element={withProtected(withLayout(OrderPreview))}
           />
 
-          <Route path="/quotations" element={withLayout(Quotations)} />
+          <Route path="/quotations" element={withProtected(withLayout(Quotations))} />
           <Route
             path="/quotationPreview/:slug"
-            element={withLayout(QuotationPreview)}
+            element={withProtected(withLayout(QuotationPreview))}
           />
 
-          <Route path="/employees" element={withLayout(Employees)} />
-          <Route path="/employee/:slug" element={withLayout(EmployeePreview)} />
+          <Route path="/employees" element={withProtected(withLayout(Employees))} />
+          <Route path="/employee/:slug" element={withProtected(withLayout(EmployeePreview))} />
 
-          <Route path="/invoices" element={withLayout(Invoices)} />
+          <Route path="/invoices" element={withProtected(withLayout(Invoices))} />
           <Route
             path="/invoicePreview/:slug"
-            element={withLayout(InvoicePreview)}
+            element={withProtected(withLayout(InvoicePreview))}
           />
 
-          <Route path="/integrations" element={withLayout(Integrations)} />
-          <Route path="/files" element={withLayout(Files)} />
+          <Route path="/integrations" element={withProtected(withLayout(Integrations))} />
+          <Route path="/files" element={withProtected(withLayout(Files))} />
 
-          <Route path="/settings" element={withLayout(Settings)} />
+          <Route path="/settings" element={withProtected(withLayout(Settings))} />
 
           <Route path="*" element={<Notfound />} />
         </Routes>
