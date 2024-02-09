@@ -29,7 +29,7 @@ export default function TicketTable({tickets}) {
           },
         }}
         slots={{
-          toolbar: toolbar ? toolbar : GridToolbar,
+          toolbar: GridToolbar,
         }}
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"

@@ -28,10 +28,10 @@ export default function InvoicePreview() {
 
   const authToken = useSelector((state) => state.authToken.token);
 
-  const { data: company, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken.access_token))
+  const { data: company, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
 
   const note = <Box>{state?.note}</Box>
-  
+
   return (
     <Box>
       <PreviewHeader label="" />
