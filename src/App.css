@@ -18,7 +18,7 @@ body,
   overflow: hidden;
 }
 .css-ittuaa-MuiInputAdornment-root {
-  height: auto;
+  height: auto !important;
 }
 
 label {
