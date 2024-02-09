@@ -23,7 +23,8 @@ import {
   Tickets,
 } from "../src/pages/Index";
 import "./App.css";
-import { withLayout } from "./components/layout/withLayout";
+import { withProtectedLayout } from "./components/layout/withProtectedLayout";
+
 import themeStore from "./features/theme/themeStore";
 
 function App() {
@@ -33,55 +34,54 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          
+            <Route path="/" element={withProtectedLayout(Dashboard)} />
+            <Route path="/dashboard" element={withProtectedLayout(Dashboard)} />
 
-          <Route path="/" element={withLayout(Dashboard)} />
-          <Route path="/dashboard" element={withLayout(Dashboard)} />
+            <Route path="/services" element={withProtectedLayout(Services)} />
+            <Route
+              path="/servicePreview/:slug"
+              element={withProtectedLayout(ServicePreview)}
+            />
 
-          <Route path="/services" element={withLayout(Services)} />
-          <Route
-            path="/servicePreview/:slug"
-            element={withLayout(ServicePreview)}
-          />
+            <Route path="/clients" element={withProtectedLayout(Clients)} />
+            <Route
+              path="/clientPreview/:slug"
+              element={withProtectedLayout(ClientPreview)}
+            />
 
-          <Route path="/clients" element={withLayout(Clients)} />
-          <Route
-            path="/clientPreview/:slug"
-            element={withLayout(ClientPreview)}
-          />
+            <Route path="/tickets" element={withProtectedLayout(Tickets)} />
+            <Route
+              path="/ticketPreview/:slug"
+              element={withProtectedLayout(TicketPreview)}
+            />
 
-          <Route path="/tickets" element={withLayout(Tickets)} />
-          <Route
-            path="/ticketPreview/:slug"
-            element={withLayout(TicketPreview)}
-          />
+            <Route path="/orders" element={withProtectedLayout(Orders)} />
+            <Route
+              path="/orderPreview/:slug"
+              element={withProtectedLayout(OrderPreview)}
+            />
 
-          <Route path="/orders" element={withLayout(Orders)} />
-          <Route
-            path="/orderPreview/:slug"
-            element={withLayout(OrderPreview)}
-          />
+            <Route path="/quotations" element={withProtectedLayout(Quotations)} />
+            <Route
+              path="/quotationPreview/:slug"
+              element={withProtectedLayout(QuotationPreview)}
+            />
 
-          <Route path="/quotations" element={withLayout(Quotations)} />
-          <Route
-            path="/quotationPreview/:slug"
-            element={withLayout(QuotationPreview)}
-          />
+            <Route path="/employees" element={withProtectedLayout(Employees)} />
+            <Route path="/employee/:slug" element={withProtectedLayout(EmployeePreview)} />
 
-          <Route path="/employees" element={withLayout(Employees)} />
-          <Route path="/employee/:slug" element={withLayout(EmployeePreview)} />
+            <Route path="/invoices" element={withProtectedLayout(Invoices)} />
+            <Route
+              path="/invoicePreview/:slug"
+              element={withProtectedLayout(InvoicePreview)}
+            />
 
-          <Route path="/invoices" element={withLayout(Invoices)} />
-          <Route
-            path="/invoicePreview/:slug"
-            element={withLayout(InvoicePreview)}
-          />
+            <Route path="/integrations" element={withProtectedLayout(Integrations)} />
+            <Route path="/files" element={withProtectedLayout(Files)} />
 
-          <Route path="/integrations" element={withLayout(Integrations)} />
-          <Route path="/files" element={withLayout(Files)} />
-
-          <Route path="/settings" element={withLayout(Settings)} />
-
-          <Route path="*" element={<Notfound />} />
+            <Route path="/settings" element={withProtectedLayout(Settings)} />
+            <Route path="*" element={<Notfound />} />
         </Routes>
       </Router>
     </ThemeProvider>
