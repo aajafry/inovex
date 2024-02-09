@@ -9,13 +9,13 @@ export default function EmployeePreview() {
   let { state } = useLocation();
   return (
     <Box>
-      <HalfcutThumbnail name={ state.name } bgImg={img2} ppImg={img1} />
-      <PreviewList title="Email" subtitle={ state.email } />
+      <HalfcutThumbnail name={ state?.name } bgImg={img2} ppImg={img1} />
+      <PreviewList title="Email" subtitle={ state?.email } />
       <PreviewList
         title="address"
-        subtitle={ state.address }
+        subtitle={ state?.address }
       />
-      <PreviewList title="Employee Role" subtitle={ state.role } />
+      <PreviewList title="Employee Role" subtitle={ state?.role } />
     </Box>
   );
 }

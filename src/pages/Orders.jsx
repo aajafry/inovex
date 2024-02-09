@@ -15,9 +15,9 @@ const URL = process.env.ORDERS_ENDPOINT;
 export default function Orders() {
   const [modalOpen, setModalOpen] = useState(false);
   
-  const authToken = useSelector((state) => state.authToken.token);
+  const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: orders, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken.access_token))
+  const { data: orders, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
   const ordersData = orders?.orders;
 
   return (

@@ -15,9 +15,9 @@ const URL = process.env.SERVICES_ENDPOINT;
 export default function Services() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const authToken = useSelector((state) => state.authToken.token);
+  const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: services, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken.access_token))
+  const { data: services, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
 
   return (
     <Box>

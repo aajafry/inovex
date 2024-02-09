@@ -28,7 +28,7 @@ export default function Login() {
       mutate(response?.data, false);
     }
      catch (error) {
-      console.error("Error submitting form:", error.message);
+      console.error("Error submitting form:", error?.message);
     }
   };
 
@@ -36,17 +36,17 @@ export default function Login() {
     <Box className="flex justify-center items-center h-full">
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput label="User Email" name="email" register={register} required />
-        {errors.email && <p>This field is required</p>}
+        {errors?.email && <p>This field is required</p>}
 
         <FormInput label="Password" name="password" type="password" register={register} required />
-        {errors.password && <p>This field is required</p>}
+        {errors?.password && <p>This field is required</p>}
 
         <FormSubmitBtn label="login" />
 
         {/* Display loading state */}
         {isLoading && <p>Loading...</p>}
         {/* Display error state */}
-        {error && <p>Error: {error.message}</p>}
+        {error && <p>Error: {error?.message}</p>}
         {/* Navigate dashboard */}
         {token &&  <Navigate to='/' replace />}
       </form>

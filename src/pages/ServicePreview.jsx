@@ -20,9 +20,9 @@ export default function ServicePreview() {
 
   let { slug } = useParams();
 
-  const authToken = useSelector((state) => state.authToken.token);
+  const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: services, error, isLoading } = useSWR([`${URL}/${slug}`, authToken], ([URL, authToken]) => fetcher(URL, authToken.access_token))
+  const { data: services, error, isLoading } = useSWR([`${URL}/${slug}`, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
 
   const brif = <div
     dangerouslySetInnerHTML={{__html: services?.services?.brif}}

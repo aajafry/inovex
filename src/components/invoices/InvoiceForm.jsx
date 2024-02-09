@@ -42,7 +42,7 @@ export default function InvoiceForm() {
   const servicesname = services?.services?.map(service => service.name);
 
   const { data: orders } = useSWR([orderURL, authToken], ([orderURL, authToken]) => fetcher(orderURL, authToken.access_token))
-  const ordersId = orders?.orders?.map(order => order._id);
+  const ordersId = orders?.orders?.map(order => order?._id);
 
   // Use SWR to fetch data
   const { data: formData, error, mutate } = useSWR([URL, authToken]); 

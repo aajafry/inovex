@@ -17,7 +17,7 @@ const URL = process.env.INVOICES_ENDPOINT;
 export default function Invoices() {
   const [modalOpen, setModalOpen] = useState(false);
   
-  const authToken = useSelector((state) => state.authToken.token);
+  const authToken = useSelector((state) => state?.authToken?.token);
 
   const { data: invoices, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
   const invoicesData = invoices?.invoices;

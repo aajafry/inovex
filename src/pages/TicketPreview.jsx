@@ -23,13 +23,13 @@ export default function TicketPreview() {
   />
   return (
     <Box>
-      <PreviewHeader label={`Order ID: ${state._id.slice(1,6)}`} />
-      <PreviewThumbnail src={img3} alt={state._id.slice(1,6)} />
+      <PreviewHeader label={`Order ID: ${state?._id.slice(1,6)}`} />
+      <PreviewThumbnail src={img3} alt={state?._id.slice(1,6)} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>
             <PreviewBrif
-              title={state.subject}
+              title={state?.subject}
               body={brif}
             />
           </Grid>
@@ -44,32 +44,32 @@ export default function TicketPreview() {
                 <PreviewProperty
                   icon={<AccountCircleIcon />}
                   title="Client Name"
-                  subtitle={state.client.name}
+                  subtitle={state?.client?.name}
                 />
                 <PreviewProperty
                   icon={<EventIcon />}
                   title="Created"
-                  subtitle={moment(state.createdAt).format("MMM DD, YYYY")}
+                  subtitle={moment(state?.createdAt).format("MMM DD, YYYY")}
                 />
                 <PreviewProperty
                   icon={<Grid3x3Icon />}
                   title="Order ID"
-                  subtitle={state._id.slice(1, 6)}
+                  subtitle={state?._id.slice(1, 6)}
                 />
                 <PreviewProperty
                   icon={<PriorityHighIcon />}
                   title="Priority"
-                  subtitle={state.priority}
+                  subtitle={state?.priority}
                 />
                 <PreviewProperty
                   icon={<MoreHorizIcon />}
                   title="Status"
-                  subtitle={state.status}
+                  subtitle={state?.status}
                 />
                 <PreviewProperty
                   icon={<AssignmentIndIcon />}
                   title="Assigned To"
-                  subtitle={state.manager.name}
+                  subtitle={state?.manager?.name}
                 />
               </List>
             </Paper>

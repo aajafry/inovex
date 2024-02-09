@@ -24,8 +24,8 @@ export default function QuotationPreview() {
   />
   return (
     <Box>
-      <PreviewHeader label={`Quotation ID: ${state._id.slice(1,6)}`} />
-      <PreviewThumbnail src={img2} alt={state._id.slice(1,6)} />
+      <PreviewHeader label={`Quotation ID: ${state?._id.slice(1,6)}`} />
+      <PreviewThumbnail src={img2} alt={state?._id.slice(1,6)} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>
@@ -45,37 +45,37 @@ export default function QuotationPreview() {
                 <PreviewProperty
                   icon={<AccountCircleIcon />}
                   title="Client Name"
-                  subtitle={state.client.name}
+                  subtitle={state?.client?.name}
                 />
                 <PreviewProperty
                   icon={<DesignServicesIcon />}
                   title="Service Name"
-                  subtitle={state.service.name}
+                  subtitle={state?.service?.name}
                 />
                 <PreviewProperty
                   icon={<ScheduleIcon />}
                   title="Kick off Date"
-                  subtitle={moment(state.openedAt).format("MMM DD, YYYY")}
+                  subtitle={moment(state?.openedAt).format("MMM DD, YYYY")}
                 />
                 <PreviewProperty
                   icon={<TaskAltIcon />}
                   title="End Date"
-                  subtitle={moment(state.completedAt).format("MMM DD, YYYY")}
+                  subtitle={moment(state?.completedAt).format("MMM DD, YYYY")}
                 />
                 <PreviewProperty
                   icon={<ProductionQuantityLimitsIcon />}
                   title="Quantity"
-                  subtitle={state.quantity}
+                  subtitle={state?.quantity}
                 />
                 <PreviewProperty
                   icon={<AttachMoneyIcon />}
                   title="Budget"
-                  subtitle={state.budget}
+                  subtitle={state?.budget}
                 />
                 <PreviewProperty
                   icon={<AssignmentIndIcon />}
                   title="Assigned To"
-                  subtitle={state.manager.name}
+                  subtitle={state?.manager?.name}
                 />
               </List>
             </Paper>

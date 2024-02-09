@@ -1,22 +1,38 @@
 /* eslint-disable react/prop-types */
-import { Box } from "@mui/material";
-import { GridToolbar } from "@mui/x-data-grid";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import {
+    Box,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { TicketColumns } from "../../apps/DataStorage";
 import StripedDataGrid from "../commons/StripedDataGrid";
 
-export default function TicketTable({tickets}) {
+
+export default function TicketsTableWidget({tickets}) {
   const navigate = useNavigate(); 
 
   return (
     <Box
-      className="w-full mb-24"
+      className="w-full"
       sx={{
         "& .super-app-theme--header": {
-          backgroundColor: "rgb(238, 245, 255)",
+           backgroundColor: "secondary.main",
+           color: "info.main"
         },
       }}
     >
+      <ListItem className=" pl-0">
+          <ListItemIcon className=" min-w-fit mr-2">
+            <ConfirmationNumberIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Recent Tickets" 
+          />
+      </ListItem>  
+      
       <StripedDataGrid
         rows={tickets}
         columns={TicketColumns}
@@ -28,9 +44,6 @@ export default function TicketTable({tickets}) {
             columnVisibilityModel: { id: false },
           },
         }}
-        slots={{
-          toolbar: toolbar ? toolbar : GridToolbar,
-        }}
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
         }
@@ -39,12 +52,10 @@ export default function TicketTable({tickets}) {
           navigate(`/ticketPreview/${params.row._id}`, { state: params.row });
         }}
         sx={{
-          '& .MuiTablePagination-root': {
-            color: 'primary.main',
+          '& .MuiDataGrid-footerContainer': {
+            display: 'none',
           },
         }}
-        pageSizeOptions={[5, 10, 15, 20]}
-        checkboxSelection
       />
     </Box>
   );

@@ -15,9 +15,9 @@ const URL = process.env.QUOTATIONS_ENDPOINT;
 export default function Quotations() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const authToken = useSelector((state) => state.authToken.token);
+  const authToken = useSelector((state) => state.authToken?.token);
 
-  const { data: quotations, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken.access_token))
+  const { data: quotations, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
   const quotationsData = quotations?.quotations;
 
   return (

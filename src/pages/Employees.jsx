@@ -16,9 +16,9 @@ const URL = process.env.USERS_ENDPOINT;
 export default function Employees() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const authToken = useSelector((state) => state.authToken.token);
+  const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: employees, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken.access_token))
+  const { data: employees, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
   const employeesData = employees?.users?.filter((user) => user?.role !== "Client");
 
   return (
