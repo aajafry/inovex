@@ -32,18 +32,9 @@ export default function QuotationForm() {
   const { data: users } = useSWR([userURL, authToken], ([userURL, authToken]) => fetcher(userURL, authToken.access_token))
   const clientsData = users?.users?.filter((user) => user?.role === "Client");
   const employeeData = users?.users?.filter((user) => user?.role !== "Client");
-  
-  const clientsId = clientsData?.map(client => client._id);
-  const clientsName = clientsData?.map(client => client.name);
-  
-  const employeesId = employeeData?.map(employee => employee._id);
-  const employeesName = employeeData?.map(employee => employee.name);
 
   const { data: services } = useSWR([serviceURL, authToken], ([serviceURL, authToken]) => fetcher(serviceURL, authToken.access_token))
    
-  const servicesId = services?.services?.map(service => service._id);
-  const servicesname = services?.services?.map(service => service.name);
-
   const { data: formData, error, mutate } = useSWR([URL, authToken]); 
 
   const onSubmit = async (data) => {
@@ -70,7 +61,8 @@ export default function QuotationForm() {
         name="client"
         register={register}
         required
-        ValuesOptions={clientsId}
+        hasTwoValue={true}
+        ValuesOptions={clientsData}
       />
       {errors.client && <p>This field is required</p>}
 
@@ -79,7 +71,8 @@ export default function QuotationForm() {
         name="service"
         register={register}
         required
-        ValuesOptions={servicesId}
+        hasTwoValue={true}
+        ValuesOptions={services?.services}
       />
       {errors.service && <p>This field is required</p>}
 
@@ -88,7 +81,8 @@ export default function QuotationForm() {
         name="manager"
         register={register}
         required
-        ValuesOptions={employeesId}
+        hasTwoValue={true}
+        ValuesOptions={employeeData}
       />
       {errors.manager && <p>This field is required</p>}
 

@@ -11,15 +11,12 @@ import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
 import InputRichText from "../commons/InputRichText";
 
-
 const statusOption = ["Open","Hold","Close"];
 const priorityOption = ["Urgent","Regular","Normal"];
-
 
 const URL = `${process.env.TICKETS_ENDPOINT}/create`;
 const userURL = process.env.USERS_ENDPOINT;
 const orderURL = process.env.ORDERS_ENDPOINT;
-
 
 export default function TicketForm() {
   const {
@@ -36,14 +33,7 @@ export default function TicketForm() {
   const clientsData = users?.users?.filter((user) => user?.role === "Client");
   const employeeData = users?.users?.filter((user) => user?.role !== "Client");
   
-  const clientsId = clientsData?.map(client => client._id);
-  const clientsName = clientsData?.map(client => client.name);
-  
-  const employeesId = employeeData?.map(employee => employee._id);
-  const employeesName = employeeData?.map(employee => employee.name);
-
   const { data: orders } = useSWR([orderURL, authToken], ([orderURL, authToken]) => fetcher(orderURL, authToken.access_token))
-   
   const ordersId = orders?.orders?.map(order => order._id);
 
   const { data: formData, error, mutate } = useSWR([URL, authToken]); 
@@ -62,7 +52,6 @@ export default function TicketForm() {
       console.error("Error submitting form:", error.message);
     }
   };
-  
   console.log(formData?.message);
 
   return (
@@ -72,7 +61,8 @@ export default function TicketForm() {
         name="client"
         register={register}
         required
-        ValuesOptions={clientsId}
+        hasTwoValue={true}
+        ValuesOptions={clientsData}
       />
       {errors.client && <p>This field is required</p>}
 
@@ -93,7 +83,8 @@ export default function TicketForm() {
         name="manager"
         register={register}
         required
-        ValuesOptions={employeesId}
+        hasTwoValue={true}
+        ValuesOptions={employeeData}
       />
       {errors.manager && <p>This field is required</p>}
 

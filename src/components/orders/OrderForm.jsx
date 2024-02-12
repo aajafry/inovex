@@ -33,16 +33,7 @@ export default function OrderForm() {
   const clientsData = users?.users?.filter((user) => user?.role === "Client");
   const employeeData = users?.users?.filter((user) => user?.role !== "Client");
   
-  const clientsId = clientsData?.map(client => client._id);
-  const clientsName = clientsData?.map(client => client.name);
-  
-  const employeesId = employeeData?.map(employee => employee._id);
-  const employeesName = employeeData?.map(employee => employee.name);
-
   const { data: services } = useSWR([serviceURL, authToken], ([serviceURL, authToken]) => fetcher(serviceURL, authToken.access_token))
-   
-  const servicesId = services?.services?.map(service => service._id);
-  const servicesname = services?.services?.map(service => service.name);
 
   // Use SWR to fetch data
   const { data: formData, error, mutate } = useSWR([URL, authToken]); 
@@ -71,7 +62,8 @@ export default function OrderForm() {
         name="client"
         register={register}
         required
-        ValuesOptions={clientsId}
+        hasTwoValue={true}
+        ValuesOptions={clientsData}
       />
       {errors.Client && <p>This field is required</p>}
 
@@ -80,7 +72,8 @@ export default function OrderForm() {
         name="service"
         register={register}
         required
-        ValuesOptions={servicesId}
+        hasTwoValue={true}
+        ValuesOptions={services?.services}
       />
       {errors.service && <p>This field is required</p>}
 
@@ -89,7 +82,8 @@ export default function OrderForm() {
         name="manager"
         register={register}
         required
-        ValuesOptions={employeesId}
+        hasTwoValue={true}
+        ValuesOptions={employeeData}
       />
       {errors.manager && <p>This field is required</p>}
 

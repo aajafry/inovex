@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -35,6 +35,7 @@ export default function Login() {
   return (
     <Box className="flex justify-center items-center h-full">
       <form onSubmit={handleSubmit(onSubmit)}>
+      <Typography variant="h4" align="center" className="uppercase" sx={{ color: "secondary.main"}}>inovex</Typography>
         <FormInput label="User Email" name="email" register={register} required />
         {errors?.email && <p>This field is required</p>}
 

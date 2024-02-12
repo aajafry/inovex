@@ -34,12 +34,8 @@ export default function InvoiceForm() {
 
   const { data: users } = useSWR([userURL, authToken], ([userURL, authToken]) => fetcher(userURL, authToken.access_token))
   const clientsData = users?.users?.filter((user) => user?.role === "Client");
-  const clientsId = clientsData?.map(client => client._id);
-  const clientsName = clientsData?.map(client => client.name);
   
   const { data: services } = useSWR([serviceURL, authToken], ([serviceURL, authToken]) => fetcher(serviceURL, authToken.access_token))
-  const servicesId = services?.services?.map(service => service._id);
-  const servicesname = services?.services?.map(service => service.name);
 
   const { data: orders } = useSWR([orderURL, authToken], ([orderURL, authToken]) => fetcher(orderURL, authToken.access_token))
   const ordersId = orders?.orders?.map(order => order?._id);
@@ -85,7 +81,8 @@ export default function InvoiceForm() {
         name="client"
         register={register}
         required
-        ValuesOptions={clientsId}
+        hasTwoValue={true}
+        ValuesOptions={clientsData}
       />
       {errors.client && <p className="error">This field is required</p>}
 
@@ -101,7 +98,8 @@ export default function InvoiceForm() {
         name="service"
         register={register}
         required
-        ValuesOptions={servicesId}
+        hasTwoValue={true}
+        ValuesOptions={services?.services}
       />
       {errors.service && <p className="error">This field is required</p>}
 
