@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import useSWR from 'swr';
@@ -11,37 +12,40 @@ import FormInput from "../commons/FormInput";
 import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
 
-// Constants
-const statusOption = ["Paid", "unpaid"];
+const statusOptions = ["Paid", "Unpaid"];
 
-const URL = `${process.env.INVOICES_ENDPOINT}/create`;
 const userURL = process.env.USERS_ENDPOINT;
 const serviceURL = process.env.SERVICES_ENDPOINT;
 const orderURL = process.env.ORDERS_ENDPOINT;
 
 
 export default function InvoiceForm() {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-    watch,
-  } = useForm();
+  const [selectedOrderId, setSelectedOrderId] = useState("");
+  const [payableAmt, setPayableAmt] = useState(0);
 
-  
+  const { register, handleSubmit, control, formState: { errors }, watch, setValue } = useForm();
   const authToken = useSelector((state) => state.authToken.token);
 
-  const { data: users } = useSWR([userURL, authToken], ([userURL, authToken]) => fetcher(userURL, authToken.access_token))
-  const clientsData = users?.users?.filter((user) => user?.role === "Client");
-  
-  const { data: services } = useSWR([serviceURL, authToken], ([serviceURL, authToken]) => fetcher(serviceURL, authToken.access_token))
+  const { data: usersData } = useSWR([userURL, authToken], ([userURL, authToken]) => fetcher(userURL, authToken?.access_token))
+  const clientsData = usersData?.users?.filter((user) => user?.role === "Client");
 
-  const { data: orders } = useSWR([orderURL, authToken], ([orderURL, authToken]) => fetcher(orderURL, authToken.access_token))
-  const ordersId = orders?.orders?.map(order => order?._id);
+  const { data: servicesData } = useSWR([serviceURL, authToken], ([serviceURL, authToken]) => fetcher(serviceURL, authToken?.access_token))
 
-  // Use SWR to fetch data
-  const { data: formData, error, mutate } = useSWR([URL, authToken]); 
+  const { data: ordersData } = useSWR([orderURL, authToken], ([orderURL, authToken]) => fetcher(orderURL, authToken.access_token))
+  const ordersId = ordersData?.orders?.map(order => order?._id);
+
+  useEffect(() => {
+    if (selectedOrderId) {
+      const selectedOrder = ordersData?.orders?.find(order => order?._id === selectedOrderId);
+      if (selectedOrder) {
+        setPayableAmt(selectedOrder?.budget);
+        setValue("payableAmt", selectedOrder?.budget);
+      }
+    } else {
+      setPayableAmt(0);
+      setValue("payableAmt", 0);
+    }
+  }, [selectedOrderId, ordersData, setValue]);
 
   const onSubmit = async (data) => {
     // Handle form submission logic here
@@ -51,27 +55,29 @@ export default function InvoiceForm() {
       const paidAmt = Number(watch("paidAmt"));
       return parseFloat((payableAmt - (discAmt + paidAmt)).toFixed(3));
     };
+
     const calculateTotalAmount = () => {
       const payableAmt = Number(watch("payableAmt"));
       return parseFloat((payableAmt - calculateDueAmount()).toFixed(3));
     };
+
     data.dueAmt = calculateDueAmount();
     data.totalAmt = calculateTotalAmount();
-
+    
     try {
-      const response = await axios.post(URL, data, {
+      const response = await axios.post(`${process.env.INVOICES_ENDPOINT}/create`, data, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${authToken.access_token}`,
         },
       });
       // If successful, update the data with SWR
-      mutate(response.data, false);
+      mutate(response?.data, false);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
+    console.log(data)
   };
-  
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -99,7 +105,7 @@ export default function InvoiceForm() {
         register={register}
         required
         hasTwoValue={true}
-        ValuesOptions={services?.services}
+        ValuesOptions={servicesData?.services}
       />
       {errors.service && <p className="error">This field is required</p>}
 
@@ -121,26 +127,18 @@ export default function InvoiceForm() {
       {["payableAmt", "discAmt", "paidAmt"].map((field) => (
         <Box key={field}>
           <Controller
-            // key={field}
             name={field}
             control={control}
-            defaultValue={field === "payableAmt" ? 100 : 0}
+            defaultValue={0}
             render={({ field }) => {
-              const { name, value, onChange } = field;
-              return (
+              const {name, value, onChange} = field;
+              return(
                 <TextField
-                  // key={name}
-                  label={
-                    name === "payableAmt"
-                      ? "Payable Amount"
-                      : name === "discAmt"
-                      ? "Discount Amount"
-                      : "Paid Amount"
-                  }
+                  label={name === "payableAmt" ? "Payable Amount" : name === "discAmt" ? "Discount Amount" : "Paid Amount"}
                   name={name}
                   type="number"
                   value={value}
-                  onChange={(event) => onChange(event.target.value)}
+                  onChange={onChange}
                   disabled={name === "payableAmt"}
                   required={!["discAmt"].includes(name)}
                   sx={{ mb: 2, pb: 0, width: "100%" }}
@@ -148,9 +146,7 @@ export default function InvoiceForm() {
               );
             }}
           />
-          {errors[field] && (
-            <p className="error">{`Error for ${field}: ${errors[field].message}`}</p>
-          )}
+          {errors[field] && <p className="error">{`Error for ${field}: ${errors[field].message}`}</p>}
         </Box>
       ))}
 
@@ -158,15 +154,14 @@ export default function InvoiceForm() {
       {["dueAmt", "totalAmt"].map((field) => (
         <Box key={field}>
           <Controller
-            // key={field}
             name={field}
             control={control}
             defaultValue={0}
             render={({ field }) => {
               const { name } = field;
-              return (
+              return(
                 <TextField
-                  // key={name}
+                  // key={field}
                   label={name === "dueAmt" ? "Due Amount" : "Total Amount"}
                   name={name}
                   type="number"
@@ -185,8 +180,8 @@ export default function InvoiceForm() {
             }}
           />
           {errors[field] && (
-            <p className="error">{`Error for ${field}: ${errors[field].message}`}</p>
-          )}
+             <p className="error">{`Error for ${field}: ${errors[field].message}`}</p>
+          )}          
         </Box>
       ))}
 
@@ -196,7 +191,7 @@ export default function InvoiceForm() {
         name="status"
         register={register}
         required
-        ValuesOptions={statusOption}
+        ValuesOptions={statusOptions}
       />
       {errors.status && <p className="error">This field is required</p>}
 
@@ -209,4 +204,3 @@ export default function InvoiceForm() {
     </form>
   );
 }
-
