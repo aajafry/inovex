@@ -68,12 +68,12 @@ export default function TicketForm() {
 
       <FormSelect
         label="Order ID"
-        name="orderId"
+        name="order"
         register={register}
         required
         ValuesOptions={ordersId}
       />
-      {errors.orderId && <p>This field is required</p>}
+      {errors.order && <p>This field is required</p>}
 
       <FormInput label="Subject" name="subject" register={register} required />
       {errors.subject && <p>This field is required</p>}
