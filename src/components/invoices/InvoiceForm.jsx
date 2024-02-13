@@ -105,12 +105,12 @@ export default function InvoiceForm() {
 
       <FormSelect
         label="Order ID"
-        name="orderId"
+        name="order"
         register={register}
         required
         ValuesOptions={ordersId}
       />
-      {errors.orderId && <p className="error">This field is required</p>}
+      {errors.order && <p className="error">This field is required</p>}
 
       {/* Payment Details Section */}
       <Typography variant="subtitle2" component="h6" sx={{ mb: 2 }}>

@@ -12,7 +12,7 @@ export default function InputDropzone({
 }) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
-    maxFiles: 3,
+    maxFiles: 1,
     maxSize: 1024 * 5000,
     onDrop: useCallback(
       (acceptedFiles) => {
