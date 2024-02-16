@@ -1,5 +1,5 @@
 import { Box, Grid, List, Paper } from "@mui/material";
-import img3 from "../assets/images/img3.jpg";
+// import img3 from "../assets/images/img3.jpg";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
@@ -26,8 +26,8 @@ export default function OrderPreview() {
   />
   return (
     <Box>
-      <PreviewHeader label={`Order ID: ${state?._id.slice(1,6)}`} />
-      <PreviewThumbnail src={img3} alt={state?._id} />
+      <PreviewHeader label={`Order ID: ${state?._id.slice(0,6)}`} />
+      <PreviewThumbnail src={state?.attachment} alt={`${state?.service?.name}-${state?._id.slice(0,6)}`} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>

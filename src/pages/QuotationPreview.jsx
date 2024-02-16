@@ -1,5 +1,5 @@
 import { Box, Grid, List, Paper } from "@mui/material";
-import img2 from "../assets/images/img2.jpg";
+// import img2 from "../assets/images/img2.jpg";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
@@ -24,8 +24,8 @@ export default function QuotationPreview() {
   />
   return (
     <Box>
-      <PreviewHeader label={`Quotation ID: ${state?._id.slice(1,6)}`} />
-      <PreviewThumbnail src={img2} alt={state?._id.slice(1,6)} />
+      <PreviewHeader label={`Quotation ID: ${state?._id.slice(0,6)}`} />
+      <PreviewThumbnail src={state?.attachment} alt={`${state?.service?.name}-${state?._id.slice(0,6)}`} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>

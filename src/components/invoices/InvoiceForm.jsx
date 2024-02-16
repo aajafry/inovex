@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import { Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -33,7 +33,7 @@ export default function InvoiceForm() {
 
   const { data: ordersData } = useSWR([orderURL, authToken], ([orderURL, authToken]) => fetcher(orderURL, authToken.access_token))
   const ordersId = ordersData?.orders?.map(order => order?._id);
-
+  
   useEffect(() => {
     if (selectedOrderId) {
       const selectedOrder = ordersData?.orders?.find(order => order?._id === selectedOrderId);
@@ -115,6 +115,8 @@ export default function InvoiceForm() {
         register={register}
         required
         ValuesOptions={ordersId}
+        setSelectedOrderId={setSelectedOrderId}
+
       />
       {errors.order && <p className="error">This field is required</p>}
 

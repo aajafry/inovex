@@ -4,6 +4,7 @@ import { Divider, Grid, Typography } from "@mui/material";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import useSWR from 'swr';
 import { fetcher } from "../../utility/fetcher";
 import FormInput from "../commons/FormInput";
@@ -19,6 +20,7 @@ const userURL = process.env.USERS_ENDPOINT;
 const serviceURL = process.env.SERVICES_ENDPOINT;
 
 export default function OrderForm() {
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
   const {
     register,
     handleSubmit,
@@ -27,7 +29,7 @@ export default function OrderForm() {
     formState: { errors },
   } = useForm();
 
-  const authToken = useSelector((state) => state.authToken.token);
+  const authToken = useSelector((state) => state?.authToken?.token);
 
   const { data: users } = useSWR([userURL, authToken], ([userURL, authToken]) => fetcher(userURL, authToken.access_token))
   const clientsData = users?.users?.filter((user) => user?.role === "Client");
@@ -36,24 +38,39 @@ export default function OrderForm() {
   const { data: services } = useSWR([serviceURL, authToken], ([serviceURL, authToken]) => fetcher(serviceURL, authToken.access_token))
 
   // Use SWR to fetch data
-  const { data: formData, error, mutate } = useSWR([URL, authToken]); 
+  const { data: orderData, error, mutate } = useSWR([URL, authToken]); 
 
   const onSubmit = async (data) => {
-    try {
-      const response = await axios.post(URL, data, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${authToken.access_token}`,
+
+  const formData = new FormData();
+  formData.append("client", data.client);
+  formData.append("service", data.service);
+  formData.append("manager", data.manager);
+  formData.append("brif", data.brif);
+  formData.append("attachment", data.attachment[0]);
+  formData.append("openedAt", data.openedAt);
+  formData.append("completedAt", data.completedAt);
+  formData.append("quantity", data.quantity);
+  formData.append("budget", data.budget);
+  formData.append("status", data.status);
+
+  try {
+    const response = await axios.post(URL, formData, {
+      headers: {
+          // "Content-Type": "application/json",
+          "Authorization": `Bearer ${authToken?.access_token}`,
         },
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
+      setIsFileUploaded(true);
+      console.log('response', response);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
   };
   
-  console.log(formData?.message);
+  console.log("orderData", orderData);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -65,7 +82,7 @@ export default function OrderForm() {
         hasTwoValue={true}
         ValuesOptions={clientsData}
       />
-      {errors.Client && <p>This field is required</p>}
+      {errors.client && <p>This field is required</p>}
 
       <FormSelect
         label="Service Name"
@@ -123,13 +140,13 @@ export default function OrderForm() {
           {errors.completedAt && <p>This field is required</p>}
         </Grid>
       </Grid>
+
       <InputDropzone
         isName="attachment"
         isRegister={register}
         isRequired={false}
-        SetDropzone={setValue}
+        setDropzone={setValue}
       />
-
       {errors.attachment && <p>This field is required</p>}
 
       <FormSelect

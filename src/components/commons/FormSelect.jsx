@@ -9,6 +9,7 @@ export default function FormSelect({
   required,
   hasTwoValue,
   ValuesOptions,
+  setSelectedOrderId
 }) {
   const [valueChange, setValueChange] = useState("");
   
@@ -22,7 +23,10 @@ export default function FormSelect({
         sx={{ mb: 2, p: 0, width: "100%" }}
         {...register(name, { required })}
         value={valueChange}
-        onChange={(e) => setValueChange(e.target.value)}
+        onChange={(e) => {
+          setValueChange(e.target.value);
+          setSelectedOrderId && setSelectedOrderId(e.target.value);
+        }}
       >
         {hasTwoValue && ValuesOptions?.map((value, index) => (
           <MenuItem key={index} value={value._id}>

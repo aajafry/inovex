@@ -27,11 +27,11 @@ export default function ServicePreview() {
   const brif = <div
     dangerouslySetInnerHTML={{__html: services?.services?.brif}}
   />
-  console.log(services?.services?.attachment[0]?.preview);
+  console.log(services?.services?.attachment);
   return (
     <Box>
       <PreviewHeader label={services?.services?.name} />
-      <PreviewThumbnail src={services?.services?.attachment[0]?.path} alt={services?.services?.name} />
+      <PreviewThumbnail src={services?.services?.attachment} alt={services?.services?.name} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>

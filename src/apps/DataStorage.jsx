@@ -10,7 +10,7 @@ const ClientColumns = [
     editable: false,
     filterable: false,
     valueGetter: (params) => {
-      return params?.row?._id.slice(1,6);
+      return params?.row?._id.slice(0,6);
     }
   },
   {
@@ -55,7 +55,7 @@ const OrderColumns = [
     editable: false,
     filterable: false,
     valueGetter: (params) => {
-      return params?.row?._id.slice(1,6);
+      return params?.row?._id.slice(0,6);
     }
   },
   {
@@ -116,7 +116,7 @@ const QuotationColumns = [
     editable: false,
     filterable: false,
     valueGetter: (params) => {
-      return params?.row?._id.slice(1,6);
+      return params?.row?._id.slice(0,6);
     }
   },
   {
@@ -165,7 +165,7 @@ const EmployeeColumns = [
     filterable: false,
     hide: true,
     valueGetter: (params) => {
-      return params?.row?._id.slice(1,6);
+      return params?.row?._id.slice(0,6);
     }
   },
   {
@@ -200,7 +200,7 @@ const TicketColumns = [
     editable: false,
     filterable: false,
     valueGetter: (params) => {
-      return params?.row?._id.slice(1,6);
+      return params?.row?._id.slice(0,6);
     }
   },
   {
@@ -220,7 +220,7 @@ const TicketColumns = [
     type: "string",
     editable: false,
     valueGetter: (params) => {
-      return params?.row?.order?._id.slice(1,6);
+      return params?.row?.order?._id.slice(0,6);
     }
   },
   {
@@ -256,7 +256,7 @@ const InvoiceColumns = [
     filterable: false,
     flex: 1,
     valueGetter: (params) => {
-      return params?.row?._id.slice(1,6);
+      return params?.row?._id.slice(0,6);
     }
   },
   {
@@ -287,7 +287,7 @@ const InvoiceColumns = [
     editable: false,
     flex: 1,
     valueGetter: (params) => {
-      return params?.row?.orderId?._id.slice(1,6);
+      return params?.row?.order?._id.slice(0,6);
     }
   },
   {

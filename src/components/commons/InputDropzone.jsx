@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -8,9 +8,9 @@ export default function InputDropzone({
   isName,
   isRegister,
   isRequired,
-  SetDropzone,
+  setDropzone,
 }) {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
     accept: "image/*",
     maxFiles: 1,
     maxSize: 1024 * 5000,
@@ -23,9 +23,9 @@ export default function InputDropzone({
             });
           });
         }
-        SetDropzone(isName, acceptedFiles);
+        setDropzone(isName, acceptedFiles);
       },
-      [isName, SetDropzone]
+      [isName, setDropzone]
     ),
   });
 
@@ -40,39 +40,48 @@ export default function InputDropzone({
         flexDirection: "column",
       }}
     >
-      <p
+      <Box 
         style={{
           textAlign: "center",
           textWrap: "pretty",
           padding: "1rem 0rem",
         }}
       >
-        Drag and drop some files here, or click to select files
-      </p>
-      <Button
-        component="label"
-        variant="contained"
-        startIcon={<CloudUploadIcon />}
-        sx={{ width: "fit-content", margin: "0rem auto 1rem auto" }}
-      >
-        Upload file
-        <input
-          name={isName}
-          {...getInputProps()}
-          {...isRegister(isName, { required: isRequired })}
-        />
-      </Button>
-      {acceptedFiles?.map((file) => (
-        <img
-          key={file.name}
-          src={file.preview}
-          alt={file.name}
-          style={{
-            height: "340px",
-            margin: "1rem 0rem",
-          }}
-        />
-      ))}
+        { isDragActive ?
+          <Typography variant="body"> 
+            Drop the files here ...
+          </Typography> :
+          <Typography variant="body"> 
+            Drag & drop some files here, or click to select files
+          </Typography>
+        }
     </Box>
+      
+    <Button
+      component="label"
+      variant="contained"
+      startIcon={<CloudUploadIcon />}
+      sx={{ width: "fit-content", margin: "0rem auto 1rem auto" }}
+    >
+      Upload
+      <input
+        name={isName}
+        {...getInputProps()}
+        {...isRegister(isName, { required: isRequired })}
+      />
+    </Button>
+
+    {acceptedFiles?.map((file, index) => (
+      <img
+        key={index}
+        src={file.preview}
+        alt={file.name}
+        style={{
+          height: "340px",
+          margin: "1rem 0rem",
+        }}
+      />
+    ))}
+  </Box>
   );
 }

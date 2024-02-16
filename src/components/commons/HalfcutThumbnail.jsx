@@ -8,7 +8,7 @@ export default function HalfcutThumbnail({ name, ppImg, bgImg }) {
       sx={{ background: `url(${bgImg}) center/cover no-repeat` }}
     >
       <Box className=" flex items-baseline ">
-        <img src={ppImg} alt="" className=" h-32 w-32 mr-2" />
+        <img src={ppImg} alt={name} className=" h-32 w-32 mr-2" />
         <Typography variant="h6" className="capitalize">
           {name}
         </Typography>

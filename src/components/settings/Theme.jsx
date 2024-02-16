@@ -30,7 +30,7 @@ export default function Theme() {
             <MuiColorInput
               value={primaryColor}
               onChange={(event) => dispatch(setPraimaryColor(event))}
-              deferred
+              deferred="true"
             />
           </Box>
         </Box>
@@ -47,7 +47,7 @@ export default function Theme() {
             <MuiColorInput
               value={secondaryColor}
               onChange={(event) => dispatch(setSecondaryColor(event))}
-              deferred
+              deferred="true"
             />
           </Box>
         </Box>
@@ -65,7 +65,7 @@ export default function Theme() {
             <MuiColorInput
               value={textColor}
               onChange={(event) => dispatch(setTextColor(event))}
-              deferred
+              deferred="true"
             />
           </Box>
         </Box>

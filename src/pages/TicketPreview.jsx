@@ -23,8 +23,8 @@ export default function TicketPreview() {
   />
   return (
     <Box>
-      <PreviewHeader label={`Order ID: ${state?._id.slice(1,6)}`} />
-      <PreviewThumbnail src={img3} alt={state?._id.slice(1,6)} />
+      <PreviewHeader label={`Ticket ID: ${state?._id.slice(0,6)}`} />
+      <PreviewThumbnail src={img3} alt={state?._id.slice(0,6)} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>
@@ -54,7 +54,7 @@ export default function TicketPreview() {
                 <PreviewProperty
                   icon={<Grid3x3Icon />}
                   title="Order ID"
-                  subtitle={state?._id.slice(1, 6)}
+                  subtitle={state?.order?._id.slice(0, 6)}
                 />
                 <PreviewProperty
                   icon={<PriorityHighIcon />}

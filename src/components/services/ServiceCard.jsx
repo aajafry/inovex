@@ -35,7 +35,7 @@ export default function ServiceCard({ service }) {
       <CardMedia
         component="img"
         className=" h-40"
-        image={service?.attachment[0]?.path}
+        image={service?.attachment}
         alt={ service.name }
       />
 

@@ -41,7 +41,7 @@ export default function InvoicePreview() {
             {" "}
             Invoice ID{" "}
           </Typography>
-          <Typography variant="body2"> {state?._id.slice(1,6)} </Typography>
+          <Typography variant="body2"> {state?._id.slice(0,6)} </Typography>
         </Box>
 
         <Box className=" mx-4 flex justify-between items-end">
@@ -85,7 +85,7 @@ export default function InvoicePreview() {
               {" "}
               Order ID{" "}
             </Typography>
-            <Typography variant="body2">{state?.orderId?._id.slice(1,6)}</Typography>
+            <Typography variant="body2">{state?.order?._id.slice(0,6)}</Typography>
           </Grid>
           <Grid item xs={3} className=" border-e-2">
             <Typography variant="button" className=" font-semibold">
