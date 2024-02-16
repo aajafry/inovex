@@ -90,7 +90,7 @@ export default function InvoiceForm() {
         hasTwoValue={true}
         ValuesOptions={clientsData}
       />
-      {errors.client && <p className="error">This field is required</p>}
+      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       {/* Billing Address Section */}
       <Typography variant="subtitle2" component="h6" sx={{ mb: 2 }}>
@@ -107,7 +107,7 @@ export default function InvoiceForm() {
         hasTwoValue={true}
         ValuesOptions={servicesData?.services}
       />
-      {errors.service && <p className="error">This field is required</p>}
+      {errors.service && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Order ID"
@@ -118,7 +118,7 @@ export default function InvoiceForm() {
         setSelectedOrderId={setSelectedOrderId}
 
       />
-      {errors.order && <p className="error">This field is required</p>}
+      {errors.order && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       {/* Payment Details Section */}
       <Typography variant="subtitle2" component="h6" sx={{ mb: 2 }}>
@@ -148,7 +148,7 @@ export default function InvoiceForm() {
               );
             }}
           />
-          {errors[field] && <p className="error">{`Error for ${field}: ${errors[field].message}`}</p>}
+          {errors[field] && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{`Error for ${field}: ${errors[field].message}`}</Typography>}
         </Box>
       ))}
 
@@ -182,7 +182,7 @@ export default function InvoiceForm() {
             }}
           />
           {errors[field] && (
-             <p className="error">{`Error for ${field}: ${errors[field].message}`}</p>
+             <Typography variant="subtitle2" sx={{color: 'error.main'}}>{`Error for ${field}: ${errors[field].message}`}</Typography>
           )}          
         </Box>
       ))}
@@ -195,11 +195,11 @@ export default function InvoiceForm() {
         required
         ValuesOptions={statusOptions}
       />
-      {errors.status && <p className="error">This field is required</p>}
+      {errors.status && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       {/* Note Section */}
       <FormInput label="Note" name="note" register={register} multiline />
-      {errors.note && <p className="error">This field is required</p>}
+      {errors.note && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       {/* Submit Button */}
       <FormSubmitBtn />

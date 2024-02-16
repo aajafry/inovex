@@ -10,6 +10,7 @@ import AddressInput from "../commons/AddressInput";
 import FormInput from "../commons/FormInput";
 import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
+import InputDropzone from "../commons/InputDropzone";
 
 const EmployeeRoleValues = ["Super Admin", "Admin", "User"];
 
@@ -19,6 +20,7 @@ export default function EmployeeForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -51,7 +53,7 @@ export default function EmployeeForm() {
         register={register}
         required
       />
-      {errors.name && <p>This field is required</p>}
+      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput
         label="Employee Email"
@@ -59,7 +61,7 @@ export default function EmployeeForm() {
         register={register}
         required
       />
-      {errors.email && <p>This field is required</p>}
+      {errors.email && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput
         label="Password"
@@ -67,7 +69,17 @@ export default function EmployeeForm() {
         register={register}
         required
       />
-      {errors.password && <p>This field is required</p>}
+      {errors.password && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+
+       <Typography variant="subtitle2">Upload User Profile Image </Typography>
+      <InputDropzone
+        isName="attachment"
+        isRegister={register}
+        isRequired={false}
+        setDropzone={setValue}
+      />
+      {errors.attachment && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+
 
       <Typography variant="subtitle2" component="h6">
         Address

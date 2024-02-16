@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import FormInput from "../commons/FormInput";
 
 export default function AddressInput({ register, errors }) {
@@ -13,22 +13,22 @@ export default function AddressInput({ register, errors }) {
             register={register}
             required
           />
-          {errors.country && <p>This field is required</p>}
+          {errors.country && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
         </Grid>
         <Grid item xs={6}>
           <FormInput label="State" name="state" register={register} required />
-          {errors.state && <p>This field is required</p>}
+          {errors.state && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
         </Grid>
       </Grid>
 
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <FormInput label="City" name="city" register={register} required />
-          {errors.city && <p>This field is required</p>}
+          {errors.city && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
         </Grid>
         <Grid item xs={6}>
           <FormInput label="Zip" name="Zip" register={register} required />
-          {errors.Zip && <p>This field is required</p>}
+          {errors.Zip && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
         </Grid>
       </Grid>
     </>

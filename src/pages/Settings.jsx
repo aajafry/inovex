@@ -7,7 +7,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
-import { About, Theme, Trams } from "../components/settings/Index";
+import { About, Company, Theme, Trams } from "../components/settings/Index";
 
 export default function Settings() {
   const [tab, setTab] = useState("theme");
@@ -26,12 +26,16 @@ export default function Settings() {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="Theme" value="theme" />
+            <Tab label="Company" value="company" />
             <Tab label="Trams" value="trams" />
             <Tab label="About" value="about" />
           </TabList>
         </Box>
         <TabPanel value="theme">
           <Theme />
+        </TabPanel>
+        <TabPanel value="company">
+          <Company />
         </TabPanel>
         <TabPanel value="trams">
           <Trams />

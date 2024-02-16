@@ -9,6 +9,7 @@ import useSWR from 'swr';
 import AddressInput from "../commons/AddressInput";
 import FormInput from "../commons/FormInput";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
+import InputDropzone from "../commons/InputDropzone";
 
 const URL = `${process.env.USERS_ENDPOINT}/create`;
 
@@ -16,6 +17,7 @@ export default function ClientForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -48,7 +50,7 @@ export default function ClientForm() {
         register={register}
         required
       />
-      {errors.name && <p>This field is required</p>}
+      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput
         label="Client Email"
@@ -56,7 +58,7 @@ export default function ClientForm() {
         register={register}
         required
       />
-      {errors.email && <p>This field is required</p>}
+      {errors.email && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput
         label="Password"
@@ -64,7 +66,17 @@ export default function ClientForm() {
         register={register}
         required
       />
-      {errors.password && <p>This field is required</p>}
+      {errors.password && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+
+      <Typography variant="subtitle2">Upload User Profile Image </Typography>
+      <InputDropzone
+        isName="image"
+        isRegister={register}
+        isRequired={false}
+        setDropzone={setValue}
+      />
+      {errors.image && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+
 
       <Typography variant="subtitle2" component="h6">
         Address
@@ -77,7 +89,7 @@ export default function ClientForm() {
         register={register}
         required
       />
-      {errors.role && <p>This field is required</p>}
+      {errors.role && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
       
       <FormSubmitBtn />
     </form>

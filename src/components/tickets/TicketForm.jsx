@@ -64,7 +64,7 @@ export default function TicketForm() {
         hasTwoValue={true}
         ValuesOptions={clientsData}
       />
-      {errors.client && <p>This field is required</p>}
+      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Order ID"
@@ -73,10 +73,10 @@ export default function TicketForm() {
         required
         ValuesOptions={ordersId}
       />
-      {errors.order && <p>This field is required</p>}
+      {errors.order && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput label="Subject" name="subject" register={register} required />
-      {errors.subject && <p>This field is required</p>}
+      {errors.subject && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Assigned To"
@@ -86,14 +86,14 @@ export default function TicketForm() {
         hasTwoValue={true}
         ValuesOptions={employeeData}
       />
-      {errors.manager && <p>This field is required</p>}
+      {errors.manager && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <Typography variant="subtitle2" component="h6">
         Description
       </Typography>
 
       <InputRichText InputWatch={watch} InputSetValue={setValue} />
-      {errors.brif && <p>This field is required</p>}
+      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Status"
@@ -102,7 +102,7 @@ export default function TicketForm() {
         required
         ValuesOptions={statusOption}
       />
-      {errors.status && <p>This field is required</p>}
+      {errors.status && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Priority"
@@ -111,7 +111,7 @@ export default function TicketForm() {
         required
         ValuesOptions={priorityOption}
       />
-      {errors.priority && <p>This field is required</p>}
+      {errors.priority && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSubmitBtn />
     </form>

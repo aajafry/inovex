@@ -18,35 +18,35 @@ export default function Company() {
       <form onSubmit={handleSubmit((data) => console.log(data))}>
         <FormInput
           label="Company Name"
-          name="companyName"
+          name="name"
           register={register}
           required
         />
-        {errors.companyName && <p>This field is required</p>}
+        {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
         <FormInput
           label="Company Email"
-          name="companyEmail"
+          name="email"
           register={register}
           required
         />
-        {errors.companyEmail && <p>This field is required</p>}
-
-        <Typography variant="subtitle2" component="h6">
-          Company Address
-        </Typography>
-        <AddressInput register={register} errors={errors} />
+        {errors.email && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
         <Typography variant="subtitle2" component="h6">
           Company Logo
         </Typography>
         <InputDropzone
-          isName="companyLogo"
+          isName="logo"
           isRegister={register}
           isRequired={false}
           SetDropzone={setValue}
         />
-        {errors.companyLogo && <p>This field is required</p>}
+        {errors.logo && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+
+        <Typography variant="subtitle2" component="h6">
+          Company Address
+        </Typography>
+        <AddressInput register={register} errors={errors} />
 
         <FormSubmitBtn />
       </form>

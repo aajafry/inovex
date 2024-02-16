@@ -55,9 +55,9 @@ export default function OrderForm() {
   formData.append("status", data.status);
 
   try {
-    const response = await axios.post(URL, formData, {
+    const response = await axios.post(URL, data, {
       headers: {
-          // "Content-Type": "application/json",
+          "Content-Type": "application/json",
           "Authorization": `Bearer ${authToken?.access_token}`,
         },
       });
@@ -82,7 +82,7 @@ export default function OrderForm() {
         hasTwoValue={true}
         ValuesOptions={clientsData}
       />
-      {errors.client && <p>This field is required</p>}
+      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Service Name"
@@ -92,7 +92,7 @@ export default function OrderForm() {
         hasTwoValue={true}
         ValuesOptions={services?.services}
       />
-      {errors.service && <p>This field is required</p>}
+      {errors.service && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Assigned To"
@@ -102,7 +102,7 @@ export default function OrderForm() {
         hasTwoValue={true}
         ValuesOptions={employeeData}
       />
-      {errors.manager && <p>This field is required</p>}
+      {errors.manager && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <Typography variant="subtitle2" component="h5">
         Order Details
@@ -115,39 +115,42 @@ export default function OrderForm() {
       </Typography>
 
       <InputRichText InputWatch={watch} InputSetValue={setValue} />
-      {errors.brif && <p>This field is required</p>}
+      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <Grid container spacing={2} sx={{ marginTop: 1 }}>
         <Grid item xs={6}>
+          <Typography variant="subtitle2">Kick Off Date</Typography>
           <FormInput
-            label="Kick Off Date"
+            // label="Kick Off Date"
             name="openedAt"
             type="date"
             register={register}
             required
           />
-          {errors.openedAt && <p>This field is required</p>}
+          {errors.openedAt && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
         </Grid>
 
         <Grid item xs={6}>
+        <Typography variant="subtitle2">End Date</Typography>
           <FormInput
-            label="End Date"
+            // label="End Date"
             name="completedAt"
             type="date"
             register={register}
             required
           />
-          {errors.completedAt && <p>This field is required</p>}
+          {errors.completedAt && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
         </Grid>
       </Grid>
 
+      <Typography variant="subtitle2">Upload Thumn! Image </Typography>
       <InputDropzone
         isName="attachment"
         isRegister={register}
         isRequired={false}
         setDropzone={setValue}
       />
-      {errors.attachment && <p>This field is required</p>}
+      {errors.attachment && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Status"
@@ -156,7 +159,7 @@ export default function OrderForm() {
         required
         ValuesOptions={statusOption}
       />
-      {errors.status && <p>This field is required</p>}
+      {errors.status && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput
         label="Quantity"
@@ -164,10 +167,10 @@ export default function OrderForm() {
         register={register}
         required
       />
-      {errors.quantity && <p>This field is required</p>}
+      {errors.quantity && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput label="Budget" name="budget" register={register} required />
-      {errors.budget && <p>This field is required</p>}
+      {errors.budget && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSubmitBtn />
     </form>

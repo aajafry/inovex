@@ -39,12 +39,10 @@ export default function ServiceForm() {
     formData.append("price", data.price);
     formData.append("duration", data.duration);
 
-    console.log(formData.append("name", data.name));
-
     try {
-      const response = await axios.post(URL, formData, {
+      const response = await axios.post(URL, data, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
           "Authorization": `Bearer ${authToken?.access_token}`,
         },
       });
@@ -67,22 +65,23 @@ export default function ServiceForm() {
         register={register}
         required
       />
-      {errors.name && <p>This field is required</p>}
+      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <Typography variant="subtitle2" component="h6">
         Description
       </Typography>
 
       <InputRichText InputWatch={watch} InputSetValue={setValue} />
-      {errors.brif && <p>This field is required</p>}
+      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
+      <Typography variant="subtitle2">Upload Thumn! Image </Typography>
       <InputDropzone
         isName="attachment"
         isRegister={register}
         isRequired={false}
         setDropzone={setValue}
       />
-      {errors.attachment && <p>This field is required</p>}
+      {errors.attachment && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSelect
         label="Pricing"
@@ -91,7 +90,7 @@ export default function ServiceForm() {
         required
         ValuesOptions={PricingOption}
       />
-      {errors.paymentTerm && <p>This field is required</p>}
+      {errors.paymentTerm && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput
         label="USD"
@@ -100,7 +99,7 @@ export default function ServiceForm() {
         register={register}
         required
       />
-      {errors.price && <p>This field is required</p>}
+      {errors.price && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormInput
         label="Duration"
@@ -108,7 +107,7 @@ export default function ServiceForm() {
         register={register}
         required
       />
-      {errors.duration && <p>This field is required</p>}
+      {errors.duration && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       <FormSubmitBtn />
     </form>
