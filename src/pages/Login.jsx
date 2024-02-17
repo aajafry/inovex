@@ -19,13 +19,14 @@ export default function Login() {
   const { data: token, error, isLoading, mutate } = useSWR([URL]); 
 
   const dispatch = useDispatch();
-  dispatch(setAuthToken(token));
+  // dispatch(setAuthToken(token));
 
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(URL, data);
       // If successful, update the data with SWR
       mutate(response?.data, false);
+      dispatch(setAuthToken(response?.data));
     }
      catch (error) {
       console.error("Error submitting form:", error?.message);

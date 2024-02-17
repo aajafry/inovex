@@ -8,6 +8,7 @@ import Integrations from "./Integrations";
 import InvoicePreview from "./InvoicePreview";
 import Invoices from "./Invoices";
 import Login from "./Login";
+import Logout from "./Logout";
 import Notfound from "./Notfound";
 import OrderPreview from "./OrderPreview";
 import Orders from "./Orders";
@@ -26,7 +27,7 @@ export {
   Dashboard, EmployeePreview, Employees, Files,
   Integrations,
   InvoicePreview,
-  Invoices, Login, Notfound,
+  Invoices, Login, Logout, Notfound,
   OrderPreview,
   Orders, QuotationPreview,
   Quotations,

@@ -1,18 +1,28 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { Avatar, IconButton, Tooltip } from "@mui/material";
-// import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
+import { useSelector } from "react-redux";
+import useSWR from 'swr';
+import { fetcher } from "../../utility/fetcher";
+
+const userURL = process.env.USERS_ENDPOINT;
 
 export default function AvatarIcon({ handleOpenUserMenu }) {
-  
-  // const { access_token } = useSelector((state) => state.authToken.token);
-  // const { userEmail, userRole } = access_token;
-  // console.log(userEmail);
-  // console.log(userRole);
+  const authToken = useSelector((state) => state.authToken.token);
+  const decoded = jwtDecode(authToken?.access_token);
+  const { userEmail } = decoded;
 
+  const { data: users } = useSWR([userURL, authToken], ([userURL, authToken]) => fetcher(userURL, authToken.access_token))
+  const userData = users?.users?.filter((user) => user?.email === userEmail);
+  
   return (
     <Tooltip title="Open Avater">
       <IconButton onClick={handleOpenUserMenu}>
-        <Avatar alt="Remy Sharp" src="" />
+        <Avatar
+          alt={userData && userData[0]?.name} 
+          src={userData && userData[0]?.image} 
+        />
       </IconButton>
     </Tooltip>
   );

@@ -11,6 +11,7 @@ import {
   InvoicePreview,
   Invoices,
   Login,
+  Logout,
   Notfound,
   OrderPreview,
   Orders,
@@ -35,54 +36,56 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           
-            <Route path="/" element={withProtectedLayout(Dashboard)} />
-            <Route path="/dashboard" element={withProtectedLayout(Dashboard)} />
+          
+          <Route path="/" element={withProtectedLayout(Dashboard)} />
+          <Route path="/dashboard" element={withProtectedLayout(Dashboard)} />
 
-            <Route path="/services" element={withProtectedLayout(Services)} />
-            <Route
-              path="/servicePreview/:slug"
-              element={withProtectedLayout(ServicePreview)}
-            />
+          <Route path="/services" element={withProtectedLayout(Services)} />
+          <Route
+            path="/servicePreview/:slug"
+            element={withProtectedLayout(ServicePreview)}
+          />
 
-            <Route path="/clients" element={withProtectedLayout(Clients)} />
-            <Route
-              path="/clientPreview/:slug"
-              element={withProtectedLayout(ClientPreview)}
-            />
+          <Route path="/clients" element={withProtectedLayout(Clients)} />
+          <Route
+            path="/clientPreview/:slug"
+            element={withProtectedLayout(ClientPreview)}
+          />
 
-            <Route path="/tickets" element={withProtectedLayout(Tickets)} />
-            <Route
-              path="/ticketPreview/:slug"
-              element={withProtectedLayout(TicketPreview)}
-            />
+          <Route path="/tickets" element={withProtectedLayout(Tickets)} />
+          <Route
+            path="/ticketPreview/:slug"
+            element={withProtectedLayout(TicketPreview)}
+          />
 
-            <Route path="/orders" element={withProtectedLayout(Orders)} />
-            <Route
-              path="/orderPreview/:slug"
-              element={withProtectedLayout(OrderPreview)}
-            />
+          <Route path="/orders" element={withProtectedLayout(Orders)} />
+          <Route
+            path="/orderPreview/:slug"
+            element={withProtectedLayout(OrderPreview)}
+          />
 
-            <Route path="/quotations" element={withProtectedLayout(Quotations)} />
-            <Route
-              path="/quotationPreview/:slug"
-              element={withProtectedLayout(QuotationPreview)}
-            />
+          <Route path="/quotations" element={withProtectedLayout(Quotations)} />
+          <Route
+            path="/quotationPreview/:slug"
+            element={withProtectedLayout(QuotationPreview)}
+          />
 
-            <Route path="/employees" element={withProtectedLayout(Employees)} />
-            <Route path="/employee/:slug" element={withProtectedLayout(EmployeePreview)} />
+          <Route path="/employees" element={withProtectedLayout(Employees)} />
+          <Route path="/employee/:slug" element={withProtectedLayout(EmployeePreview)} />
 
-            <Route path="/invoices" element={withProtectedLayout(Invoices)} />
-            <Route
-              path="/invoicePreview/:slug"
-              element={withProtectedLayout(InvoicePreview)}
-            />
+          <Route path="/invoices" element={withProtectedLayout(Invoices)} />
+          <Route
+            path="/invoicePreview/:slug"
+            element={withProtectedLayout(InvoicePreview)}
+          />
 
-            <Route path="/integrations" element={withProtectedLayout(Integrations)} />
-            <Route path="/files" element={withProtectedLayout(Files)} />
+          <Route path="/integrations" element={withProtectedLayout(Integrations)} />
+          <Route path="/files" element={withProtectedLayout(Files)} />
 
-            <Route path="/settings" element={withProtectedLayout(Settings)} />
-            <Route path="*" element={<Notfound />} />
+          <Route path="/settings" element={withProtectedLayout(Settings)} />
+          <Route path="*" element={<Notfound />} />
         </Routes>
       </Router>
     </ThemeProvider>
