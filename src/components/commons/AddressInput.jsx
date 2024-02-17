@@ -27,8 +27,8 @@ export default function AddressInput({ register, errors }) {
           {errors.city && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
         </Grid>
         <Grid item xs={6}>
-          <FormInput label="Zip" name="Zip" register={register} required />
-          {errors.Zip && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+          <FormInput label="Zip" name="zip" register={register} required />
+          {errors.zip && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
         </Grid>
       </Grid>
     </>

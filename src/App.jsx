@@ -30,6 +30,7 @@ import themeStore from "./features/theme/themeStore";
 function App() {
   let theme = themeStore();
   return (
+    
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>

@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars */
 import { Divider, Grid, Typography } from "@mui/material";
 import axios from 'axios';
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 import useSWR from 'swr';
 import { fetcher } from "../../utility/fetcher";
 import FormInput from "../commons/FormInput";
@@ -20,7 +20,7 @@ const userURL = process.env.USERS_ENDPOINT;
 const serviceURL = process.env.SERVICES_ENDPOINT;
 
 export default function OrderForm() {
-  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
@@ -41,7 +41,6 @@ export default function OrderForm() {
   const { data: orderData, error, mutate } = useSWR([URL, authToken]); 
 
   const onSubmit = async (data) => {
-
   const formData = new FormData();
   formData.append("client", data.client);
   formData.append("service", data.service);
@@ -55,23 +54,20 @@ export default function OrderForm() {
   formData.append("status", data.status);
 
   try {
-    const response = await axios.post(URL, data, {
+    const response = await axios.post(URL, formData, {
       headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${authToken?.access_token}`,
         },
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFileUploaded(true);
-      console.log('response', response);
+      setIsFormSubmited(true);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
   };
   
-  console.log("orderData", orderData);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormSelect
@@ -172,7 +168,7 @@ export default function OrderForm() {
       <FormInput label="Budget" name="budget" register={register} required />
       {errors.budget && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
-      <FormSubmitBtn />
+      <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>
   );
 }

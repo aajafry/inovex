@@ -20,6 +20,7 @@ const orderURL = process.env.ORDERS_ENDPOINT;
 
 
 export default function InvoiceForm() {
+  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
   const [payableAmt, setPayableAmt] = useState(0);
 
@@ -73,6 +74,7 @@ export default function InvoiceForm() {
       });
       // If successful, update the data with SWR
       mutate(response?.data, false);
+      setIsFormSubmited(true);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
@@ -202,7 +204,7 @@ export default function InvoiceForm() {
       {errors.note && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
       {/* Submit Button */}
-      <FormSubmitBtn />
+      <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>
   );
 }

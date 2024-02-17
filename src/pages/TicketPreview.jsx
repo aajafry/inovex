@@ -18,7 +18,7 @@ import PreviewThumbnail from "../components/commons/PreviewThumbnail";
 export default function TicketPreview() {
   let { state } = useLocation();
   
-  const brif = <div
+  const brif = <p
     dangerouslySetInnerHTML={{__html: state?.brif}}
   />
   return (

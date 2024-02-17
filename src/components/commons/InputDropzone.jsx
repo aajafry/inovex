@@ -52,7 +52,7 @@ export default function InputDropzone({
             Drop the files here ...
           </Typography> :
           <Typography variant="body"> 
-            Drag & drop some files here, or click to select files
+            Drag and drop some files here<br /> or<br /> click to select files
           </Typography>
         }
     </Box>

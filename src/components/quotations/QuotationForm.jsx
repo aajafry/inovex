@@ -20,7 +20,7 @@ const serviceURL = process.env.SERVICES_ENDPOINT;
 
 
 export default function QuotationForm() {
-  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
@@ -52,26 +52,21 @@ export default function QuotationForm() {
   formData.append("quantity", data.quantity);
   formData.append("budget", data.budget);
 
-  console.log("data",data);
-
     try {
-      const response = await axios.post(URL, data, {
+      const response = await axios.post(URL, formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${authToken?.access_token}`,
         },
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFileUploaded("response", response);
-      console.log('response', response);
+      setIsFormSubmited(true);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
   };
   
-  console.log("quotationData", quotationData);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormSelect
@@ -133,7 +128,7 @@ export default function QuotationForm() {
         <Grid item xs={6}>
           <Typography variant="subtitle2">End Date</Typography>
           <FormInput
-            label="End Date"
+            // label="End Date"
             name="completedAt"
             type="date"
             register={register}
@@ -163,7 +158,7 @@ export default function QuotationForm() {
       <FormInput label="Budget" name="budget" register={register} required />
       {errors.budget && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
-      <FormSubmitBtn />
+      <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>
   );
 }

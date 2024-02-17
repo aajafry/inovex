@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { Typography } from "@mui/material";
 import axios from 'axios';
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import useSWR from 'swr';
@@ -19,6 +20,7 @@ const userURL = process.env.USERS_ENDPOINT;
 const orderURL = process.env.ORDERS_ENDPOINT;
 
 export default function TicketForm() {
+  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
@@ -48,6 +50,7 @@ export default function TicketForm() {
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
+      setIsFormSubmited(true);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
@@ -113,7 +116,7 @@ export default function TicketForm() {
       />
       {errors.priority && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
-      <FormSubmitBtn />
+      <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>
   );
 }

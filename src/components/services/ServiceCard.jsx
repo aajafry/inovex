@@ -52,7 +52,7 @@ export default function ServiceCard({ service }) {
           </Box>
           <Box className=" inline-flex">
             <ReceiptIcon className="mx-1" />
-            <Typography>{service.invoice?.length}</Typography>
+            <Typography>{service.invoices?.length}</Typography>
           </Box>
         </Paper>
 

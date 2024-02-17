@@ -27,7 +27,7 @@ export default function ServicePreview() {
   const brif = <div
     dangerouslySetInnerHTML={{__html: services?.services?.brif}}
   />
-  console.log(services?.services?.attachment);
+
   return (
     <Box>
       <PreviewHeader label={services?.services?.name} />
@@ -61,7 +61,7 @@ export default function ServicePreview() {
                 <PreviewProperty
                   icon={<ProductionQuantityLimitsIcon />}
                   title="Quantity"
-                  subtitle={services?.services?.invoice?.length}
+                  subtitle={services?.services?.invoices?.length}
                 />
                 <PreviewProperty
                   icon={<AccessTimeIcon />}

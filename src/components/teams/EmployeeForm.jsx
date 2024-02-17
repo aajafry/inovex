@@ -3,6 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Typography } from "@mui/material";
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import useSWR from 'swr';
@@ -17,6 +18,7 @@ const EmployeeRoleValues = ["Super Admin", "Admin", "User"];
 const URL = `${process.env.USERS_ENDPOINT}/create`;
 
 export default function EmployeeForm() {
+  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
@@ -29,15 +31,27 @@ export default function EmployeeForm() {
   const { data: formData, error, mutate } = useSWR([URL, authToken]); 
 
   const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("country", data.country);
+    formData.append("city", data.city);
+    formData.append("state", data.state);
+    formData.append("zip", data.zip);
+    formData.append("role", data.role);
+    formData.append("image", data.image[0]);
+
     try {
-      const response = await axios.post(URL, data, {
+      const response = await axios.post(URL, formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${authToken.access_token}`,
         },
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
+      setIsFormSubmited(true);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
@@ -73,7 +87,7 @@ export default function EmployeeForm() {
 
        <Typography variant="subtitle2">Upload User Profile Image </Typography>
       <InputDropzone
-        isName="attachment"
+        isName="image"
         isRegister={register}
         isRequired={false}
         setDropzone={setValue}
@@ -94,7 +108,7 @@ export default function EmployeeForm() {
         ValuesOptions={EmployeeRoleValues}
       />
 
-      <FormSubmitBtn />
+      <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>
   );
 }

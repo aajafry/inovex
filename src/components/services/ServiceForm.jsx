@@ -17,7 +17,7 @@ const PricingOption = ["Pay with Invoice","Pay with Instalment"];
 const URL = `${process.env.SERVICES_ENDPOINT}/create`;
 
 export default function ServiceForm() {
-  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
@@ -40,22 +40,19 @@ export default function ServiceForm() {
     formData.append("duration", data.duration);
 
     try {
-      const response = await axios.post(URL, data, {
+      const response = await axios.post(URL, formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${authToken?.access_token}`,
         },
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFileUploaded(true);
-      console.log('response', response);
+      setIsFormSubmited(true);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
   };
-  console.log(isFileUploaded);  
-  console.log("serviceData", serviceData);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -109,7 +106,7 @@ export default function ServiceForm() {
       />
       {errors.duration && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
 
-      <FormSubmitBtn />
+      <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>
   );
 }
