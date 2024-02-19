@@ -1,11 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import useSWR from 'swr';
+import { userSchema } from "../../utility/zodSchema/userSchema";
 import AddressInput from "../commons/AddressInput";
 import FormInput from "../commons/FormInput";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
@@ -20,7 +22,9 @@ export default function ClientForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({ 
+    resolver: zodResolver(userSchema)
+  });
 
   const authToken = useSelector((state) => state.authToken.token);
 
@@ -53,42 +57,43 @@ export default function ClientForm() {
     }
   };
 
-  console.log(formData?.message);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
         label="Client Name"
+        type="text"
         name="name"
         register={register}
-        required
+        // required
       />
-      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.name.message}</Typography>}
 
       <FormInput
         label="Client Email"
+        type="email"
         name="email"
         register={register}
-        required
+        // required
       />
-      {errors.email && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.email && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.email.message}</Typography>}
 
       <FormInput
         label="Password"
+        type="password"
         name="password"
         register={register}
-        required
+        // required
       />
-      {errors.password && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.password && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.password.message}</Typography>}
 
       <Typography variant="subtitle2">Upload User Profile Image </Typography>
       <InputDropzone
         isName="image"
         isRegister={register}
-        isRequired={false}
+        // isRequired={false}
         setDropzone={setValue}
       />
-      {errors.image && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.image && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.image.message}</Typography>}
 
 
       <Typography variant="subtitle2" component="h6">
@@ -98,11 +103,12 @@ export default function ClientForm() {
 
       <FormInput
         label="Default Role Client"
+        type="text"
         name="role"
         register={register}
-        required
+        // required
       />
-      {errors.role && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.role && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.role.message}</Typography>}
       
       <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>

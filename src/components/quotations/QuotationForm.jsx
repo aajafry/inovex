@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Divider, Grid, Typography } from "@mui/material";
 import axios from 'axios';
 import { useState } from "react";
@@ -7,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import useSWR from 'swr';
 import { fetcher } from "../../utility/fetcher";
+import { quotationSchema } from "../../utility/zodSchema/quotationSchema";
 import FormInput from "../commons/FormInput";
 import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
@@ -27,7 +29,9 @@ export default function QuotationForm() {
     setValue,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ 
+    resolver: zodResolver(quotationSchema) 
+  });
 
   const authToken = useSelector((state) => state?.authToken?.token);
 
@@ -72,32 +76,35 @@ export default function QuotationForm() {
       <FormSelect
         label="Client Name"
         name="client"
+        // type="text"
         register={register}
-        required
+        // required
         hasTwoValue={true}
         ValuesOptions={clientsData}
       />
-      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.client.message}</Typography>}
 
       <FormSelect
         label="Service Name"
         name="service"
+        // type="text"
         register={register}
-        required
+        // required
         hasTwoValue={true}
         ValuesOptions={services?.services}
       />
-      {errors.service && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.service && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.service.message}</Typography>}
 
       <FormSelect
         label="Assigned To"
         name="manager"
+        // type="text"
         register={register}
-        required
+        // required
         hasTwoValue={true}
         ValuesOptions={employeeData}
       />
-      {errors.manager && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.manager && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.manager.message}</Typography>}
 
       <Typography variant="subtitle2" component="h5">
         Quotation Details
@@ -110,7 +117,7 @@ export default function QuotationForm() {
       </Typography>
 
       <InputRichText InputWatch={watch} InputSetValue={setValue} />
-      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.brif.message}</Typography>}
 
       <Grid container spacing={2} sx={{ marginTop: 1 }}>
         <Grid item xs={6}>
@@ -120,9 +127,9 @@ export default function QuotationForm() {
             name="openedAt"
             type="date"
             register={register}
-            required
+            // required
           />
-          {errors.openedAt && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+          {errors.openedAt && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.openedAt.message}</Typography>}
         </Grid>
 
         <Grid item xs={6}>
@@ -132,9 +139,9 @@ export default function QuotationForm() {
             name="completedAt"
             type="date"
             register={register}
-            required
+            // required
           />
-          {errors.completedAt && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+          {errors.completedAt && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.completedAt.message}</Typography>}
         </Grid>
       </Grid>
 
@@ -142,21 +149,28 @@ export default function QuotationForm() {
       <InputDropzone
         isName="attachment"
         isRegister={register}
-        isRequired={false}
+        // isRequired={false}
         setDropzone={setValue}
       />
-      {errors.attachment && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.attachment && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.attachment.message}</Typography>}
 
       <FormInput
         label="Quantity"
         name="quantity"
+        type="text"
         register={register}
-        required
+        // required
       />
-      {errors.quantity && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.quantity && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.quantity.message}</Typography>}
 
-      <FormInput label="Budget" name="budget" register={register} required />
-      {errors.budget && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      <FormInput 
+        label="Budget" 
+        name="budget"
+        type="text"
+        register={register}
+        // required
+      />
+      {errors.budget && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.budget.message}</Typography>}
 
       <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>

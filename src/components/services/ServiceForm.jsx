@@ -1,11 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import useSWR from 'swr';
+import { serviceSchema } from "../../utility/zodSchema/serviceSchema";
 import FormInput from "../commons/FormInput";
 import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
@@ -24,7 +26,9 @@ export default function ServiceForm() {
     watch,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({ 
+    resolver: zodResolver(serviceSchema)
+   });
 
   const authToken = useSelector((state) => state?.authToken?.token);
 
@@ -58,53 +62,55 @@ export default function ServiceForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
         label="Service Name"
+        type="text"
         name="name"
         register={register}
-        required
+        // required
       />
-      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.name.message}</Typography>}
 
       <Typography variant="subtitle2" component="h6">
         Description
       </Typography>
 
       <InputRichText InputWatch={watch} InputSetValue={setValue} />
-      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.brif.message}</Typography>}
 
       <Typography variant="subtitle2">Upload Thumn! Image </Typography>
       <InputDropzone
         isName="attachment"
         isRegister={register}
-        isRequired={false}
+        // isRequired={false}
         setDropzone={setValue}
       />
-      {errors.attachment && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.attachment && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.attachment.message}</Typography>}
 
       <FormSelect
         label="Pricing"
         name="paymentTerm"
         register={register}
-        required
+        // required
         ValuesOptions={PricingOption}
       />
-      {errors.paymentTerm && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.paymentTerm && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.paymentTerm.message}</Typography>}
 
       <FormInput
         label="USD"
         name="price"
         type="number"
         register={register}
-        required
+        // required
       />
-      {errors.price && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.price && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.price.message}</Typography>}
 
       <FormInput
         label="Duration"
+        type="text"
         name="duration"
         register={register}
-        required
+        // required
       />
-      {errors.duration && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.duration && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.duration.message}</Typography>}
 
       <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>

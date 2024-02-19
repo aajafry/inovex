@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Typography } from "@mui/material";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
@@ -9,11 +10,14 @@ import useSWR from 'swr';
 import FormInput from "../components/commons/FormInput";
 import FormSubmitBtn from "../components/commons/FormSubmitBtn";
 import { setAuthToken } from "../features/token/tokenSlice";
+import { loginSchema } from '../utility/zodSchema/loginSchema';
 
 const URL = process.env.LOGIN_ENDPOINT;
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({ 
+    resolver: zodResolver(loginSchema)
+  });
 
   // Use SWR to fetch data
   const { data: token, error, isLoading, mutate } = useSWR([URL]); 
@@ -37,11 +41,23 @@ export default function Login() {
     <Box className="flex justify-center items-center h-full">
       <form onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h4" align="center" className="uppercase" sx={{ color: "secondary.main"}}>inovex</Typography>
-        <FormInput label="User Email" name="email" register={register} required />
-        {errors?.email && <p>This field is required</p>}
+        <FormInput 
+          label="User Email" 
+          type="email" 
+          name="email" 
+          register={register} 
+          // required 
+        />
+        {errors?.email && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.email.message}</Typography>}
 
-        <FormInput label="Password" name="password" type="password" register={register} required />
-        {errors?.password && <p>This field is required</p>}
+        <FormInput 
+          label="Password" 
+          name="password" 
+          type="password" 
+          register={register} 
+          // required 
+        />
+        {errors?.password && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.password.message}</Typography>}
 
         <FormSubmitBtn label="login" />
 

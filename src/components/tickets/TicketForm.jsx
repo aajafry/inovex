@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
 import axios from 'axios';
 import { useState } from "react";
@@ -7,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import useSWR from 'swr';
 import { fetcher } from "../../utility/fetcher";
+import { ticketSchema } from "../../utility/zodSchema/ticketSchema";
 import FormInput from "../commons/FormInput";
 import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
@@ -27,7 +29,9 @@ export default function TicketForm() {
     watch,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(ticketSchema)
+  });
 
   const authToken = useSelector((state) => state.authToken.token);
 
@@ -55,66 +59,76 @@ export default function TicketForm() {
       console.error("Error submitting form:", error.message);
     }
   };
-  console.log(formData?.message);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormSelect
         label="Client Name"
-        name="client"
+        // type="text"
         register={register}
-        required
+        name="client"
+        // required
         hasTwoValue={true}
         ValuesOptions={clientsData}
       />
-      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.client.message}</Typography>}
 
       <FormSelect
         label="Order ID"
+        // type="text"
         name="order"
         register={register}
-        required
+        // required
         ValuesOptions={ordersId}
       />
-      {errors.order && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.order && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.order.message}</Typography>}
 
-      <FormInput label="Subject" name="subject" register={register} required />
-      {errors.subject && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      <FormInput 
+        label="Subject" 
+        type="text"
+        name="subject" 
+        register={register} 
+        // required 
+      />
+      {errors.subject && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.subject.message}</Typography>}
 
       <FormSelect
         label="Assigned To"
+        // type="text"
         name="manager"
         register={register}
-        required
+        // required
         hasTwoValue={true}
         ValuesOptions={employeeData}
       />
-      {errors.manager && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.manager && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.manager.message}</Typography>}
 
       <Typography variant="subtitle2" component="h6">
         Description
       </Typography>
 
       <InputRichText InputWatch={watch} InputSetValue={setValue} />
-      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.brif.message}</Typography>}
 
       <FormSelect
         label="Status"
+        // type="text"
         name="status"
         register={register}
-        required
+        // required
         ValuesOptions={statusOption}
       />
-      {errors.status && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.status && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.status.message}</Typography>}
 
       <FormSelect
         label="Priority"
+        // type="text"
         name="priority"
         register={register}
-        required
+        // required
         ValuesOptions={priorityOption}
       />
-      {errors.priority && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+      {errors.priority && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.priority.message}</Typography>}
 
       <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>
