@@ -16,7 +16,7 @@ const URL = process.env.LOGIN_ENDPOINT;
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm({ 
-    resolver: zodResolver(loginSchema)
+    // resolver: zodResolver(loginSchema)
   });
 
   // Use SWR to fetch data
