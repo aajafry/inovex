@@ -19,7 +19,7 @@ import Services from "./Services";
 import Settings from "./Settings";
 import TicketPreview from "./TicketPreview";
 import Tickets from "./Tickets";
-
+import Signup from "./Signup";
 
 export {
   ClientPreview,
@@ -34,5 +34,6 @@ export {
   ServicePreview,
   Services,
   Settings, TicketPreview,
-  Tickets
+  Tickets,
+  Signup
 };

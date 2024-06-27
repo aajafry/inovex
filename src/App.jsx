@@ -22,6 +22,7 @@ import {
   Settings,
   TicketPreview,
   Tickets,
+  Signup
 } from "../src/pages/Index";
 import "./App.css";
 import { withProtectedLayout } from "./components/layout/withProtectedLayout";
@@ -35,6 +36,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
+          <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           

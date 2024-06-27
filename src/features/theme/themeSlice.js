@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  praimaryColor: "#92C7CF",
-  secondaryColor: "#AAD7D9",
-  textColor: "#FBF9F1",
+  praimaryColor: "#9F54FF",
+  secondaryColor: "#BD8AFF",
+  textColor: "#FFFFFF",
 };
 
 export const themeSlice = createSlice({
