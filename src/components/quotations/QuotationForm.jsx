@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import useSWR from 'swr';
 import { fetcher } from "../../utility/fetcher";
 import { quotationSchema } from "../../utility/zodSchema/quotationSchema";
@@ -66,8 +67,10 @@ export default function QuotationForm() {
       // If successful, update the data with SWR
       mutate(response.data, false);
       setIsFormSubmited(true);
+      toast.success("Quotation created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error.message);
+      toast.error("Failed to submit quotation. Please try again.");
     }
   };
   

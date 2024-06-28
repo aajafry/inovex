@@ -7,11 +7,13 @@ import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import FormInput from "../components/commons/FormInput";
 import FormSubmitBtn from "../components/commons/FormSubmitBtn";
 import { setAuthToken } from "../features/token/tokenSlice";
 import { loginSchema } from "../utility/zodSchema/loginSchema";
+
 
 const URL = `${process.env.AUTH_ENDPOINT}/login`;
 
@@ -31,9 +33,11 @@ export default function Login() {
       // If successful, update the data with SWR
       mutate(response?.data, false);
       dispatch(setAuthToken(response?.data));
+      toast.success("Login successful!");
     }
      catch (error) {
       console.error("Error submitting form:", error?.message);
+      toast.error("Invalid Credentials. Please try again.");
     }
   };
 

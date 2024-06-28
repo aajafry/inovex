@@ -13,6 +13,7 @@ import FormInput from "../commons/FormInput";
 import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
 import InputRichText from "../commons/InputRichText";
+import { toast } from "react-toastify";
 
 const statusOption = ["Open","Hold","Close"];
 const priorityOption = ["Urgent","Regular","Normal"];
@@ -55,8 +56,10 @@ export default function TicketForm() {
       // If successful, update the data with SWR
       mutate(response.data, false);
       setIsFormSubmited(true);
+      toast.success("Ticket created successfully");
     } catch (error) {
       console.error("Error submitting form:", error.message);
+      toast.error("Failed to submit ticket. Please try again.");
     }
   };
 

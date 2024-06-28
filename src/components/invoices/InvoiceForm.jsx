@@ -13,6 +13,7 @@ import AddressInput from "../commons/AddressInput";
 import FormInput from "../commons/FormInput";
 import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
+import { toast } from "react-toastify";
 
 const statusOptions = ["Paid", "Unpaid"];
 
@@ -83,8 +84,10 @@ export default function InvoiceForm() {
       // If successful, update the data with SWR
       mutate(response?.data, false);
       setIsFormSubmited(true);
+      toast.success("Invoice created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error.message);
+      toast.error("Error creating invoice. Please try again.");
     }
   };
 

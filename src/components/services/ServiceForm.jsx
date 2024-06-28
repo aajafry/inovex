@@ -13,6 +13,8 @@ import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
 import InputDropzone from "../commons/InputDropzone";
 import InputRichText from "../commons/InputRichText";
+import { toast } from "react-toastify";
+
 
 const PricingOption = ["Pay with Invoice","Pay with Instalment"];
 
@@ -53,8 +55,10 @@ export default function ServiceForm() {
       // If successful, update the data with SWR
       mutate(response.data, false);
       setIsFormSubmited(true);
+      toast.success("Service has been added successfully!");
     } catch (error) {
       console.error("Error submitting form:", error.message);
+      toast.error("Failed to add service. Please try again.");
     }
   };
 

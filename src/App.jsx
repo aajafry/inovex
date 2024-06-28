@@ -20,13 +20,12 @@ import {
   ServicePreview,
   Services,
   Settings,
+  Signup,
   TicketPreview,
-  Tickets,
-  Signup
+  Tickets
 } from "../src/pages/Index";
 import "./App.css";
 import { withProtectedLayout } from "./components/layout/withProtectedLayout";
-
 import themeStore from "./features/theme/themeStore";
 
 function App() {

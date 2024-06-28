@@ -10,6 +10,7 @@ import useSWR from 'swr';
 import FormInput from "../components/commons/FormInput";
 import FormSubmitBtn from "../components/commons/FormSubmitBtn";
 import { signupSchema } from "../utility/zodSchema/signupSchema";
+import { toast } from 'react-toastify';
 
 const URL = `${process.env.AUTH_ENDPOINT}/signup`;
 
@@ -26,19 +27,15 @@ export default function Signup() {
   const { data: newUser, error, isLoading, mutate } = useSWR([URL]); 
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-  
     try {
-      // const response = await axios.post(URL, formData);
       const response = await axios.post(URL, data);
       // If successful, update the data with SWR
       mutate(response.data, false);
       setIsFormSubmited(true);
+      toast.success('Signup successful! Please login.');
     } catch (error) {
       console.error("Error submitting form:", error.message);
+      toast.error('Signup failed. Please try again.');
     }
   };
 

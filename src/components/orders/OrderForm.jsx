@@ -14,6 +14,7 @@ import FormSelect from "../commons/FormSelect";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
 import InputDropzone from "../commons/InputDropzone";
 import InputRichText from "../commons/InputRichText";
+import { toast } from "react-toastify";
 
 const statusOption = ["Ongoing","Process","Completed"];
 
@@ -68,8 +69,11 @@ export default function OrderForm() {
       // If successful, update the data with SWR
       mutate(response.data, false);
       setIsFormSubmited(true);
+      toast.success("Order submitted successfully!");
+
     } catch (error) {
       console.error("Error submitting form:", error.message);
+      toast.error("Failed to submit order. Please try again.");
     }
   };
   

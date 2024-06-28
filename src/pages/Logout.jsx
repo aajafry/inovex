@@ -16,7 +16,7 @@ export default function Logout() {
 
   useEffect(() => {
     handleLogout();
-  }, []); 
+  }, []);
 
   return (
     <Box className="flex justify-center items-center h-full">

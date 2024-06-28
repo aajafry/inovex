@@ -19,6 +19,7 @@
     "@mui/x-data-grid": "^6.18.7",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.7",
+    "caniuse-lite": "^1.0.30001638",
     "dotenv": "^16.4.1",
     "jwt-decode": "^4.0.0",
     "material-ui-popup-state": "^5.0.10",
@@ -33,6 +34,7 @@
     "react-quill": "^2.0.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.1",
+    "react-toastify": "^10.0.5",
     "swr": "^2.2.4",
     "zod": "^3.22.4"
   },
