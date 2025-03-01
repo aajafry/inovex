@@ -20,13 +20,12 @@ const PricingOption = ["Pay with Invoice", "Pay with Instalment"];
 const URL = `${process.env.SERVICES_ENDPOINT}/create`;
 
 export default function ServiceForm() {
-  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(serviceSchema),
   });
@@ -53,7 +52,6 @@ export default function ServiceForm() {
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFormSubmited(true);
       toast.success("Service has been added successfully!");
     } catch (error) {
       console.error("Error submitting form:", error.message);
@@ -139,7 +137,10 @@ export default function ServiceForm() {
         </Typography>
       )}
 
-      <FormSubmitBtn isdisabled={isFormSubmited} />
+      <FormSubmitBtn
+        label={isSubmitting ? "Loading..." : "Create Service"}
+        isdisabled={isSubmitting}
+      />
     </form>
   );
 }

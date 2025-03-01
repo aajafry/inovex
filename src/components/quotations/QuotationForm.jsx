@@ -21,13 +21,12 @@ const userURL = process.env.USERS_ENDPOINT;
 const serviceURL = process.env.SERVICES_ENDPOINT;
 
 export default function QuotationForm() {
-  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(quotationSchema),
   });
@@ -68,7 +67,6 @@ export default function QuotationForm() {
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFormSubmited(true);
       toast.success("Quotation created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error.message);
@@ -213,7 +211,10 @@ export default function QuotationForm() {
         </Typography>
       )}
 
-      <FormSubmitBtn isdisabled={isFormSubmited} />
+      <FormSubmitBtn
+        label={isSubmitting ? "Loading..." : "Create Quotation"}
+        isdisabled={isSubmitting}
+      />
     </form>
   );
 }

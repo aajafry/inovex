@@ -19,7 +19,7 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -82,7 +82,10 @@ export default function Login() {
             </Link>
           </Typography>
 
-          <FormSubmitBtn label="Login" />
+          <FormSubmitBtn
+            label={isSubmitting ? "Loading..." : "Login"}
+            isdisabled={isSubmitting}
+          />
         </form>
       </Box>
     </Container>

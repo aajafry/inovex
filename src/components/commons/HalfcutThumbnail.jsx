@@ -22,7 +22,7 @@ export default function HalfcutThumbnail({ name, ppImg, bgImg }) {
         >
           Edit
         </Button>
-        <Button className=" ml-1" variant="outlined" size="small" color="error">
+        <Button className="ml-1" variant="outlined" size="small" color="error">
           Delete
         </Button>
       </Box>

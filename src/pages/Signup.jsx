@@ -1,25 +1,23 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import useSWR from "swr";
 import FormInput from "../components/commons/FormInput";
 import FormSubmitBtn from "../components/commons/FormSubmitBtn";
 import { signupSchema } from "../utility/zodSchema/signupSchema";
-import { toast } from "react-toastify";
 
 const URL = `${process.env.AUTH_ENDPOINT}/signup`;
 
 export default function Signup() {
-  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(signupSchema),
   });
@@ -31,7 +29,6 @@ export default function Signup() {
       const response = await axios.post(URL, data);
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFormSubmited(true);
       toast.success("Signup successful! Please login.");
     } catch (error) {
       console.error("Error submitting form:", error.message);
@@ -86,7 +83,10 @@ export default function Signup() {
             </Link>
           </Typography>
 
-          <FormSubmitBtn label="Signup" isdisabled={isFormSubmited} />
+          <FormSubmitBtn
+            label={isSubmitting ? "Loading..." : "Signup"}
+            isdisabled={isSubmitting}
+          />
 
           {isLoading && <Typography variant="subtitle2">Loading...</Typography>}
           {error && (

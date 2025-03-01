@@ -3,26 +3,24 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import useSWR from "swr";
 import { userSchema } from "../../utility/zodSchema/userSchema";
 import AddressInput from "../commons/AddressInput";
 import FormInput from "../commons/FormInput";
 import FormSubmitBtn from "../commons/FormSubmitBtn";
 import InputDropzone from "../commons/InputDropzone";
-import { toast } from "react-toastify";
 
 const URL = `${process.env.USERS_ENDPOINT}/create`;
 
 export default function ClientForm() {
-  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(userSchema),
   });
@@ -52,7 +50,6 @@ export default function ClientForm() {
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFormSubmited(true);
       toast.success("Client created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error.message);
@@ -132,7 +129,10 @@ export default function ClientForm() {
         </Typography>
       )}
 
-      <FormSubmitBtn isdisabled={isFormSubmited} />
+      <FormSubmitBtn
+        label={isSubmitting ? "Loading..." : "Create Client"}
+        isdisabled={isSubmitting}
+      />
     </form>
   );
 }

@@ -23,13 +23,12 @@ const userURL = process.env.USERS_ENDPOINT;
 const orderURL = process.env.ORDERS_ENDPOINT;
 
 export default function TicketForm() {
-  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(ticketSchema),
   });
@@ -60,7 +59,6 @@ export default function TicketForm() {
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFormSubmited(true);
       toast.success("Ticket created successfully");
     } catch (error) {
       console.error("Error submitting form:", error.message);
@@ -166,7 +164,10 @@ export default function TicketForm() {
         </Typography>
       )}
 
-      <FormSubmitBtn isdisabled={isFormSubmited} />
+      <FormSubmitBtn
+        label={isSubmitting ? "Loading..." : "Create Ticket"}
+        isdisabled={isSubmitting}
+      />
     </form>
   );
 }

@@ -20,12 +20,11 @@ const EmployeeRoleValues = ["Super Admin", "Admin", "User"];
 const URL = `${process.env.USERS_ENDPOINT}/create`;
 
 export default function EmployeeForm() {
-  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(userSchema),
   });
@@ -55,7 +54,6 @@ export default function EmployeeForm() {
       });
       // If successful, update the data with SWR
       mutate(response.data, false);
-      setIsFormSubmited(true);
       toast.success("Employee created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error.message);
@@ -136,7 +134,10 @@ export default function EmployeeForm() {
         </Typography>
       )}
 
-      <FormSubmitBtn isdisabled={isFormSubmited} />
+      <FormSubmitBtn
+        label={isSubmitting ? "Loading..." : "Create Employee"}
+        isdisabled={isSubmitting}
+      />
     </form>
   );
 }

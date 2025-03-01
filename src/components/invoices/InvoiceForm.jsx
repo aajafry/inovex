@@ -23,7 +23,6 @@ const orderURL = process.env.ORDERS_ENDPOINT;
 const URL = process.env.INVOICES_ENDPOINT;
 
 export default function InvoiceForm() {
-  const [isFormSubmited, setIsFormSubmited] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
   const [payableAmt, setPayableAmt] = useState(0);
 
@@ -31,7 +30,7 @@ export default function InvoiceForm() {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     watch,
     setValue,
   } = useForm({
@@ -102,7 +101,6 @@ export default function InvoiceForm() {
       });
       // If successful, update the data with SWR
       mutate(response?.data, false);
-      setIsFormSubmited(true);
       toast.success("Invoice created successfully!");
     } catch (error) {
       console.error("Error submitting form:", error.message);
@@ -276,7 +274,10 @@ export default function InvoiceForm() {
       )}
 
       {/* Submit Button */}
-      <FormSubmitBtn isdisabled={isFormSubmited} />
+      <FormSubmitBtn
+        label={isSubmitting ? "Loading..." : "Create Invoice"}
+        isdisabled={isSubmitting}
+      />
     </form>
   );
 }
