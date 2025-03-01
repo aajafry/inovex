@@ -3,7 +3,7 @@
 import { Box, Grid, Paper } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import HeadingTitle from "../components/commons/HeadingTitle";
 import ModalCTAbtn from "../components/commons/ModalCTAbtn";
 import ServiceCard from "../components/services/ServiceCard";
@@ -17,7 +17,11 @@ export default function Services() {
 
   const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: services, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
+  const {
+    data: services,
+    error,
+    isLoading,
+  } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken));
 
   return (
     <Box>
@@ -35,15 +39,14 @@ export default function Services() {
       />
 
       <Grid container spacing={3} className=" w-full mx-0 mt-4 mb-24 pr-4">
-
-      {isLoading && <h2>Loading...</h2> } 
-      {services?.services?.map((service, index) => (
-        <Grid key={index} item md={4} sm={6} sx={1}>
-          <Paper>
-            <ServiceCard service={service}/>
-          </Paper>
-        </Grid>
-      ))}
+        {isLoading && <h2>Loading...</h2>}
+        {services?.services?.map((service, index) => (
+          <Grid key={index} item md={4} sm={6} sx={1}>
+            <Paper>
+              <ServiceCard service={service} />
+            </Paper>
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );

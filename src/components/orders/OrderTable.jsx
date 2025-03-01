@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { OrderColumns } from "../../apps/DataStorage";
 import StripedDataGrid from "../commons/StripedDataGrid";
 
-export default function OrderTable({orders}) {
+export default function OrderTable({ orders }) {
   const navigate = useNavigate();
-  
+
   return (
     <Box
       className="w-full mb-24"
@@ -36,8 +36,8 @@ export default function OrderTable({orders}) {
           navigate(`/orderPreview/${params.row._id}`, { state: params.row });
         }}
         sx={{
-          '& .MuiTablePagination-root': {
-            color: 'primary.main',
+          "& .MuiTablePagination-root": {
+            color: "primary.main",
           },
         }}
         pageSizeOptions={[5, 10, 15, 20]}

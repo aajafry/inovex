@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { EmployeeColumns } from "../../apps/DataStorage";
 import StripedDataGrid from "../commons/StripedDataGrid";
 
-export default function EmployeeTable({employees}) {
+export default function EmployeeTable({ employees }) {
   const navigate = useNavigate();
 
   return (
@@ -35,14 +35,13 @@ export default function EmployeeTable({employees}) {
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
         }
-        
         getRowId={(row) => row._id}
         onRowClick={(params) => {
           navigate(`/employee/${params.row._id}`, { state: params.row });
         }}
         sx={{
-          '& .MuiTablePagination-root': {
-            color: 'primary.main',
+          "& .MuiTablePagination-root": {
+            color: "primary.main",
           },
         }}
         pageSizeOptions={[5, 10, 15, 20]}

@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import { userSchema } from "../../utility/zodSchema/userSchema";
 import AddressInput from "../commons/AddressInput";
 import FormInput from "../commons/FormInput";
@@ -26,13 +26,13 @@ export default function EmployeeForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({ 
-    resolver: zodResolver(userSchema)
+  } = useForm({
+    resolver: zodResolver(userSchema),
   });
 
   const authToken = useSelector((state) => state.authToken.token);
 
-  const { data: formData, error, mutate } = useSWR([URL, authToken]); 
+  const { data: formData, error, mutate } = useSWR([URL, authToken]);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -50,7 +50,7 @@ export default function EmployeeForm() {
       const response = await axios.post(URL, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${authToken.access_token}`,
+          Authorization: `Bearer ${authToken}`,
         },
       });
       // If successful, update the data with SWR
@@ -62,7 +62,7 @@ export default function EmployeeForm() {
       toast.error("Failed to create employee. Please try again.");
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormInput
@@ -72,7 +72,11 @@ export default function EmployeeForm() {
         register={register}
         // required
       />
-      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.name.message}</Typography>}
+      {errors.name && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.name.message}
+        </Typography>
+      )}
 
       <FormInput
         label="Employee Email"
@@ -81,7 +85,11 @@ export default function EmployeeForm() {
         register={register}
         // required
       />
-      {errors.email && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.email.message}</Typography>}
+      {errors.email && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.email.message}
+        </Typography>
+      )}
 
       <FormInput
         label="Password"
@@ -90,17 +98,24 @@ export default function EmployeeForm() {
         register={register}
         // required
       />
-      {errors.password && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.password.message}</Typography>}
+      {errors.password && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.password.message}
+        </Typography>
+      )}
 
-       <Typography variant="subtitle2">Upload User Profile Image </Typography>
+      <Typography variant="subtitle2">Upload User Profile Image </Typography>
       <InputDropzone
         isName="image"
         isRegister={register}
         // isRequired={false}
         setDropzone={setValue}
       />
-      {errors.image && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.image.message}</Typography>}
-
+      {errors.image && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.image.message}
+        </Typography>
+      )}
 
       <Typography variant="subtitle2" component="h6">
         Address
@@ -115,7 +130,11 @@ export default function EmployeeForm() {
         // required
         ValuesOptions={EmployeeRoleValues}
       />
-      {errors.role && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.role.message}</Typography>}
+      {errors.role && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.role.message}
+        </Typography>
+      )}
 
       <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>

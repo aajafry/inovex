@@ -12,4 +12,3 @@ function withProtectedLayout(Component) {
 }
 
 export { withProtectedLayout };
-

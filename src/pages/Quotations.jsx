@@ -3,7 +3,7 @@
 import { Paper } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import HeadingTitle from "../components/commons/HeadingTitle";
 import ModalCTAbtn from "../components/commons/ModalCTAbtn";
 import QuotationModal from "../components/quotations/QuotationModal";
@@ -17,7 +17,11 @@ export default function Quotations() {
 
   const authToken = useSelector((state) => state.authToken?.token);
 
-  const { data: quotations, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
+  const {
+    data: quotations,
+    error,
+    isLoading,
+  } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken));
   const quotationsData = quotations?.quotations;
 
   return (
@@ -34,7 +38,7 @@ export default function Quotations() {
         OpenModal={modalOpen}
         OffModal={() => setModalOpen(false)}
       />
-       
+
       {isLoading && <h2>Loading...</h2>}
       {quotations && <QuotationTable quotations={quotationsData} />}
     </>

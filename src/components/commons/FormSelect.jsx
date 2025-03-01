@@ -9,10 +9,10 @@ export default function FormSelect({
   required,
   hasTwoValue,
   ValuesOptions,
-  setSelectedOrderId
+  setSelectedOrderId,
 }) {
   const [valueChange, setValueChange] = useState("");
-  
+
   return (
     <FormControl fullWidth>
       <InputLabel id={name}>{label}</InputLabel>
@@ -28,17 +28,19 @@ export default function FormSelect({
           setSelectedOrderId && setSelectedOrderId(e.target.value);
         }}
       >
-        {hasTwoValue && ValuesOptions?.map((value, index) => (
-          <MenuItem key={index} value={value._id}>
-            {value.name}
-          </MenuItem>
-        ))}
+        {hasTwoValue &&
+          ValuesOptions?.map((value, index) => (
+            <MenuItem key={index} value={value._id}>
+              {value.name}
+            </MenuItem>
+          ))}
 
-        {!hasTwoValue && ValuesOptions?.map((value, index) => (
-          <MenuItem key={index} value={value}>
-            {value}
-          </MenuItem>
-        ))}
+        {!hasTwoValue &&
+          ValuesOptions?.map((value, index) => (
+            <MenuItem key={index} value={value}>
+              {value}
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   );

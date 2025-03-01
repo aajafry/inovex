@@ -3,7 +3,7 @@
 import { Paper } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import HeadingTitle from "../components/commons/HeadingTitle";
 import ModalCTAbtn from "../components/commons/ModalCTAbtn";
 import EmployeeModal from "../components/teams/EmployeeModal";
@@ -12,14 +12,19 @@ import { fetcher } from "../utility/fetcher";
 
 const URL = process.env.USERS_ENDPOINT;
 
-
 export default function Employees() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: employees, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
-  const employeesData = employees?.users?.filter((user) => user?.role !== "Client");
+  const {
+    data: employees,
+    error,
+    isLoading,
+  } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken));
+  const employeesData = employees?.users?.filter(
+    (user) => user?.role !== "Client"
+  );
 
   return (
     <>
@@ -31,12 +36,13 @@ export default function Employees() {
         />
       </Paper>
 
-      <EmployeeModal OpenModal={modalOpen} OffModal={() => setModalOpen(false)} />
+      <EmployeeModal
+        OpenModal={modalOpen}
+        OffModal={() => setModalOpen(false)}
+      />
 
-      
       {isLoading && <h2>Loading...</h2>}
       {employeesData && <EmployeeTable employees={employeesData} />}
-      
     </>
   );
 }

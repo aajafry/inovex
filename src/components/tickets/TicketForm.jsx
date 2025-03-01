@@ -2,11 +2,11 @@
 /* eslint-disable no-unused-vars */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@mui/material";
-import axios from 'axios';
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import { fetcher } from "../../utility/fetcher";
 import { ticketSchema } from "../../utility/zodSchema/ticketSchema";
 import FormInput from "../commons/FormInput";
@@ -15,8 +15,8 @@ import FormSubmitBtn from "../commons/FormSubmitBtn";
 import InputRichText from "../commons/InputRichText";
 import { toast } from "react-toastify";
 
-const statusOption = ["Open","Hold","Close"];
-const priorityOption = ["Urgent","Regular","Normal"];
+const statusOption = ["Open", "Hold", "Close"];
+const priorityOption = ["Urgent", "Regular", "Normal"];
 
 const URL = `${process.env.TICKETS_ENDPOINT}/create`;
 const userURL = process.env.USERS_ENDPOINT;
@@ -31,26 +31,31 @@ export default function TicketForm() {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(ticketSchema)
+    resolver: zodResolver(ticketSchema),
   });
 
   const authToken = useSelector((state) => state.authToken.token);
 
-  const { data: users } = useSWR([userURL, authToken], ([userURL, authToken]) => fetcher(userURL, authToken.access_token))
+  const { data: users } = useSWR([userURL, authToken], ([userURL, authToken]) =>
+    fetcher(userURL, authToken)
+  );
   const clientsData = users?.users?.filter((user) => user?.role === "Client");
   const employeeData = users?.users?.filter((user) => user?.role !== "Client");
-  
-  const { data: orders } = useSWR([orderURL, authToken], ([orderURL, authToken]) => fetcher(orderURL, authToken.access_token))
-  const ordersId = orders?.orders?.map(order => order._id);
 
-  const { data: formData, error, mutate } = useSWR([URL, authToken]); 
+  const { data: orders } = useSWR(
+    [orderURL, authToken],
+    ([orderURL, authToken]) => fetcher(orderURL, authToken)
+  );
+  const ordersId = orders?.orders?.map((order) => order._id);
+
+  const { data: formData, error, mutate } = useSWR([URL, authToken]);
 
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(URL, data, {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${authToken.access_token}`,
+          Authorization: `Bearer ${authToken}`,
         },
       });
       // If successful, update the data with SWR
@@ -74,7 +79,11 @@ export default function TicketForm() {
         hasTwoValue={true}
         ValuesOptions={clientsData}
       />
-      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.client.message}</Typography>}
+      {errors.client && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.client.message}
+        </Typography>
+      )}
 
       <FormSelect
         label="Order ID"
@@ -84,16 +93,24 @@ export default function TicketForm() {
         // required
         ValuesOptions={ordersId}
       />
-      {errors.order && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.order.message}</Typography>}
+      {errors.order && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.order.message}
+        </Typography>
+      )}
 
-      <FormInput 
-        label="Subject" 
+      <FormInput
+        label="Subject"
         type="text"
-        name="subject" 
-        register={register} 
-        // required 
+        name="subject"
+        register={register}
+        // required
       />
-      {errors.subject && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.subject.message}</Typography>}
+      {errors.subject && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.subject.message}
+        </Typography>
+      )}
 
       <FormSelect
         label="Assigned To"
@@ -104,14 +121,22 @@ export default function TicketForm() {
         hasTwoValue={true}
         ValuesOptions={employeeData}
       />
-      {errors.manager && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.manager.message}</Typography>}
+      {errors.manager && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.manager.message}
+        </Typography>
+      )}
 
       <Typography variant="subtitle2" component="h6">
         Description
       </Typography>
 
       <InputRichText InputWatch={watch} InputSetValue={setValue} />
-      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.brif.message}</Typography>}
+      {errors.brif && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.brif.message}
+        </Typography>
+      )}
 
       <FormSelect
         label="Status"
@@ -121,7 +146,11 @@ export default function TicketForm() {
         // required
         ValuesOptions={statusOption}
       />
-      {errors.status && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.status.message}</Typography>}
+      {errors.status && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.status.message}
+        </Typography>
+      )}
 
       <FormSelect
         label="Priority"
@@ -131,7 +160,11 @@ export default function TicketForm() {
         // required
         ValuesOptions={priorityOption}
       />
-      {errors.priority && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.priority.message}</Typography>}
+      {errors.priority && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.priority.message}
+        </Typography>
+      )}
 
       <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>

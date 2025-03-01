@@ -3,7 +3,7 @@
 import { Paper } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import ClientModal from "../components/clients/ClientModal";
 import ClientTable from "../components/clients/ClientTable";
 import HeadingTitle from "../components/commons/HeadingTitle";
@@ -14,12 +14,16 @@ const URL = process.env.USERS_ENDPOINT;
 
 export default function Clients() {
   const [modalOpen, setModalOpen] = useState(false);
-  
+
   const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: clients, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
+  const {
+    data: clients,
+    error,
+    isLoading,
+  } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken));
   const clientsData = clients?.users?.filter((user) => user?.role === "Client");
-    
+
   return (
     <>
       <Paper

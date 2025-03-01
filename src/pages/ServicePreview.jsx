@@ -6,8 +6,8 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import { Box, Grid, List, Paper } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
-import useSWR from 'swr';
+import { useParams } from "react-router-dom";
+import useSWR from "swr";
 import PreviewBrif from "../components/commons/PreviewBrif";
 import PreviewHeader from "../components/commons/PreviewHeader";
 import PreviewProperty from "../components/commons/PreviewProperty";
@@ -17,34 +17,39 @@ import { fetcher } from "../utility/fetcher";
 const URL = process.env.SERVICES_ENDPOINT;
 
 export default function ServicePreview() {
-
   let { slug } = useParams();
 
   const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: services, error, isLoading } = useSWR([`${URL}/${slug}`, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
+  const {
+    data: services,
+    error,
+    isLoading,
+  } = useSWR([`${URL}/${slug}`, authToken], ([URL, authToken]) =>
+    fetcher(URL, authToken)
+  );
 
-  const brif = <div
-    dangerouslySetInnerHTML={{__html: services?.services?.brif}}
-  />
+  const brif = (
+    <div dangerouslySetInnerHTML={{ __html: services?.services?.brif }} />
+  );
 
   return (
     <Box>
       <PreviewHeader label={services?.services?.name} />
-      <PreviewThumbnail src={services?.services?.attachment} alt={services?.services?.name} />
+      <PreviewThumbnail
+        src={services?.services?.attachment}
+        alt={services?.services?.name}
+      />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>
-            <PreviewBrif
-              title="Servise Brif"
-              body={brif}
-            />
+            <PreviewBrif title="Servise Brif" body={brif} />
           </Grid>
           <Grid item xs={4}>
-            <Paper 
-              elevation={2} 
+            <Paper
+              elevation={2}
               className="p-4"
-              sx={{ backgroundColor: "secondary.main", color: "info.main"}}
+              sx={{ backgroundColor: "secondary.main", color: "info.main" }}
             >
               Properties
               <List>

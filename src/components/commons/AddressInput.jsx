@@ -14,40 +14,56 @@ export default function AddressInput({ register, errors }) {
             register={register}
             // required
           />
-          {errors.country && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.country.message}</Typography>}
+          {errors.country && (
+            <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+              {errors.country.message}
+            </Typography>
+          )}
         </Grid>
         <Grid item xs={6}>
-          <FormInput 
+          <FormInput
             label="State"
-            type="text" 
-            name="state" 
-            register={register} 
-            // required 
+            type="text"
+            name="state"
+            register={register}
+            // required
           />
-          {errors.state && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.state.message}</Typography>}
+          {errors.state && (
+            <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+              {errors.state.message}
+            </Typography>
+          )}
         </Grid>
       </Grid>
 
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <FormInput 
+          <FormInput
             label="City"
-            type="text" 
-            name="city" 
-            register={register} 
-            // required 
+            type="text"
+            name="city"
+            register={register}
+            // required
           />
-          {errors.city && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.city.message}</Typography>}
+          {errors.city && (
+            <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+              {errors.city.message}
+            </Typography>
+          )}
         </Grid>
         <Grid item xs={6}>
-          <FormInput 
+          <FormInput
             label="Zip"
-            type="number" 
-            name="zip" 
-            register={register} 
-            // required 
+            type="number"
+            name="zip"
+            register={register}
+            // required
           />
-          {errors.zip && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.zip.message}</Typography>}
+          {errors.zip && (
+            <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+              {errors.zip.message}
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </>

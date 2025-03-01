@@ -2,11 +2,11 @@
 /* eslint-disable no-unused-vars */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, TextField, Typography } from "@mui/material";
-import axios from 'axios';
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import { fetcher } from "../../utility/fetcher";
 import { invoiceSchema } from "../../utility/zodSchema/invoiceSchema";
 import AddressInput from "../commons/AddressInput";
@@ -22,28 +22,47 @@ const serviceURL = process.env.SERVICES_ENDPOINT;
 const orderURL = process.env.ORDERS_ENDPOINT;
 const URL = process.env.INVOICES_ENDPOINT;
 
-
 export default function InvoiceForm() {
   const [isFormSubmited, setIsFormSubmited] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
   const [payableAmt, setPayableAmt] = useState(0);
 
-  const { register, handleSubmit, control, formState: { errors }, watch, setValue } = useForm({ 
-    resolver: zodResolver(invoiceSchema)
-   });
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useForm({
+    resolver: zodResolver(invoiceSchema),
+  });
   const authToken = useSelector((state) => state.authToken.token);
 
-  const { data: usersData } = useSWR([userURL, authToken], ([userURL, authToken]) => fetcher(userURL, authToken?.access_token))
-  const clientsData = usersData?.users?.filter((user) => user?.role === "Client");
+  const { data: usersData } = useSWR(
+    [userURL, authToken],
+    ([userURL, authToken]) => fetcher(userURL, authToken)
+  );
+  const clientsData = usersData?.users?.filter(
+    (user) => user?.role === "Client"
+  );
 
-  const { data: servicesData } = useSWR([serviceURL, authToken], ([serviceURL, authToken]) => fetcher(serviceURL, authToken?.access_token))
+  const { data: servicesData } = useSWR(
+    [serviceURL, authToken],
+    ([serviceURL, authToken]) => fetcher(serviceURL, authToken)
+  );
 
-  const { data: ordersData } = useSWR([orderURL, authToken], ([orderURL, authToken]) => fetcher(orderURL, authToken.access_token))
-  const ordersId = ordersData?.orders?.map(order => order?._id);
-  
+  const { data: ordersData } = useSWR(
+    [orderURL, authToken],
+    ([orderURL, authToken]) => fetcher(orderURL, authToken)
+  );
+  const ordersId = ordersData?.orders?.map((order) => order?._id);
+
   useEffect(() => {
     if (selectedOrderId) {
-      const selectedOrder = ordersData?.orders?.find(order => order?._id === selectedOrderId);
+      const selectedOrder = ordersData?.orders?.find(
+        (order) => order?._id === selectedOrderId
+      );
       if (selectedOrder) {
         setPayableAmt(selectedOrder?.budget);
         setValue("payableAmt", selectedOrder?.budget);
@@ -55,7 +74,7 @@ export default function InvoiceForm() {
   }, [selectedOrderId, ordersData, setValue]);
 
   // Use SWR to fetch data
-  const { data: invoiceData, error, mutate } = useSWR([URL, authToken]); 
+  const { data: invoiceData, error, mutate } = useSWR([URL, authToken]);
 
   const onSubmit = async (data) => {
     // Handle form submission logic here
@@ -73,12 +92,12 @@ export default function InvoiceForm() {
 
     data.dueAmt = calculateDueAmount();
     data.totalAmt = calculateTotalAmount();
-    
+
     try {
       const response = await axios.post(`${URL}/create`, data, {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${authToken.access_token}`,
+          Authorization: `Bearer ${authToken}`,
         },
       });
       // If successful, update the data with SWR
@@ -103,7 +122,11 @@ export default function InvoiceForm() {
         hasTwoValue={true}
         ValuesOptions={clientsData}
       />
-      {errors.client && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.client.message}</Typography>}
+      {errors.client && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.client.message}
+        </Typography>
+      )}
 
       {/* Billing Address Section */}
       <Typography variant="subtitle2" component="h6" sx={{ mb: 2 }}>
@@ -121,7 +144,11 @@ export default function InvoiceForm() {
         hasTwoValue={true}
         ValuesOptions={servicesData?.services}
       />
-      {errors.service && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.service.message}</Typography>}
+      {errors.service && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.service.message}
+        </Typography>
+      )}
 
       <FormSelect
         label="Order ID"
@@ -131,9 +158,12 @@ export default function InvoiceForm() {
         // required
         ValuesOptions={ordersId}
         setSelectedOrderId={setSelectedOrderId}
-
       />
-      {errors.order && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.order.message}</Typography>}
+      {errors.order && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.order.message}
+        </Typography>
+      )}
 
       {/* Payment Details Section */}
       <Typography variant="subtitle2" component="h6" sx={{ mb: 2 }}>
@@ -148,10 +178,16 @@ export default function InvoiceForm() {
             control={control}
             defaultValue={0}
             render={({ field }) => {
-              const {name, value, onChange} = field;
-              return(
+              const { name, value, onChange } = field;
+              return (
                 <TextField
-                  label={name === "payableAmt" ? "Payable Amount" : name === "discAmt" ? "Discount Amount" : "Paid Amount"}
+                  label={
+                    name === "payableAmt"
+                      ? "Payable Amount"
+                      : name === "discAmt"
+                      ? "Discount Amount"
+                      : "Paid Amount"
+                  }
                   name={name}
                   type="number"
                   value={value}
@@ -163,7 +199,12 @@ export default function InvoiceForm() {
               );
             }}
           />
-          {errors[field] && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{`Error for ${field}: ${errors[field].message}`}</Typography>}
+          {errors[field] && (
+            <Typography
+              variant="subtitle2"
+              sx={{ color: "error.main" }}
+            >{`Error for ${field}: ${errors[field].message}`}</Typography>
+          )}
         </Box>
       ))}
 
@@ -176,7 +217,7 @@ export default function InvoiceForm() {
             defaultValue={0}
             render={({ field }) => {
               const { name } = field;
-              return(
+              return (
                 <TextField
                   // key={field}
                   label={name === "dueAmt" ? "Due Amount" : "Total Amount"}
@@ -197,8 +238,11 @@ export default function InvoiceForm() {
             }}
           />
           {errors[field] && (
-             <Typography variant="subtitle2" sx={{color: 'error.main'}}>{`Error for ${field}: ${errors[field].message}`}</Typography>
-          )}          
+            <Typography
+              variant="subtitle2"
+              sx={{ color: "error.main" }}
+            >{`Error for ${field}: ${errors[field].message}`}</Typography>
+          )}
         </Box>
       ))}
 
@@ -211,17 +255,25 @@ export default function InvoiceForm() {
         // required
         ValuesOptions={statusOptions}
       />
-      {errors.status && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.status.message}</Typography>}
+      {errors.status && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.status.message}
+        </Typography>
+      )}
 
       {/* Note Section */}
-      <FormInput 
-        label="Note" 
+      <FormInput
+        label="Note"
         type="text"
-        name="note" 
-        register={register} 
-        multiline 
+        name="note"
+        register={register}
+        multiline
       />
-      {errors.note && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.note.message}</Typography>}
+      {errors.note && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.note.message}
+        </Typography>
+      )}
 
       {/* Submit Button */}
       <FormSubmitBtn isdisabled={isFormSubmited} />

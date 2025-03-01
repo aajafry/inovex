@@ -23,10 +23,7 @@ export default function SingleMenuItem({ ItemName, ItemIcon }) {
           >
             {ItemIcon}
           </ListItemIcon>
-          <ListItemText
-            primary={ItemName}
-            sx={{ opacity: open ? 1 : 0 }}
-          />
+          <ListItemText primary={ItemName} sx={{ opacity: open ? 1 : 0 }} />
         </ListItemButton>
       </Link>
     </ListItem>

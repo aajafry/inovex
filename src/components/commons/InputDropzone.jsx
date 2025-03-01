@@ -10,24 +10,25 @@ export default function InputDropzone({
   isRequired,
   setDropzone,
 }) {
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
-    accept: "image/*",
-    maxFiles: 1,
-    maxSize: 1024 * 5000,
-    onDrop: useCallback(
-      (acceptedFiles) => {
-        if (acceptedFiles?.length) {
-          acceptedFiles.map((file) => {
-            Object.assign(file, {
-              preview: URL.createObjectURL(file),
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+    useDropzone({
+      accept: "image/*",
+      maxFiles: 1,
+      maxSize: 1024 * 5000,
+      onDrop: useCallback(
+        (acceptedFiles) => {
+          if (acceptedFiles?.length) {
+            acceptedFiles.map((file) => {
+              Object.assign(file, {
+                preview: URL.createObjectURL(file),
+              });
             });
-          });
-        }
-        setDropzone(isName, acceptedFiles);
-      },
-      [isName, setDropzone]
-    ),
-  });
+          }
+          setDropzone(isName, acceptedFiles);
+        },
+        [isName, setDropzone]
+      ),
+    });
 
   return (
     <Box
@@ -40,48 +41,49 @@ export default function InputDropzone({
         flexDirection: "column",
       }}
     >
-      <Box 
+      <Box
         style={{
           textAlign: "center",
           textWrap: "pretty",
           padding: "1rem 0rem",
         }}
       >
-        { isDragActive ?
-          <Typography variant="body"> 
-            Drop the files here ...
-          </Typography> :
-          <Typography variant="body"> 
-            Drag and drop some files here<br /> or<br /> click to select files
+        {isDragActive ? (
+          <Typography variant="body">Drop the files here ...</Typography>
+        ) : (
+          <Typography variant="body">
+            Drag and drop some files here
+            <br /> or
+            <br /> click to select files
           </Typography>
-        }
-    </Box>
-      
-    <Button
-      component="label"
-      variant="contained"
-      startIcon={<CloudUploadIcon />}
-      sx={{ width: "fit-content", margin: "0rem auto 1rem auto" }}
-    >
-      Upload
-      <input
-        name={isName}
-        {...getInputProps()}
-        {...isRegister(isName, { required: isRequired })}
-      />
-    </Button>
+        )}
+      </Box>
 
-    {acceptedFiles?.map((file, index) => (
-      <img
-        key={index}
-        src={file.preview}
-        alt={file.name}
-        style={{
-          height: "340px",
-          margin: "1rem 0rem",
-        }}
-      />
-    ))}
-  </Box>
+      <Button
+        component="label"
+        variant="contained"
+        startIcon={<CloudUploadIcon />}
+        sx={{ width: "fit-content", margin: "0rem auto 1rem auto" }}
+      >
+        Upload
+        <input
+          name={isName}
+          {...getInputProps()}
+          {...isRegister(isName, { required: isRequired })}
+        />
+      </Button>
+
+      {acceptedFiles?.map((file, index) => (
+        <img
+          key={index}
+          src={file.preview}
+          alt={file.name}
+          style={{
+            height: "340px",
+            margin: "1rem 0rem",
+          }}
+        />
+      ))}
+    </Box>
   );
 }

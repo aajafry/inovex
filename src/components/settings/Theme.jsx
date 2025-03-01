@@ -1,5 +1,5 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import { MuiColorInput } from 'mui-color-input';
+import { MuiColorInput } from "mui-color-input";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setPraimaryColor,
@@ -38,10 +38,12 @@ export default function Theme() {
         <Box className=" flex justify-between items-center">
           <Box>
             <Typography variant="h6" color={secondaryColor}>
-            Secondary Color
+              Secondary Color
             </Typography>
             <Typography variant="body2">
-            The Secondary Color will apply to the Menu, Sidebar & highlighted positions background.            </Typography>
+              The Secondary Color will apply to the Menu, Sidebar & highlighted
+              positions background.{" "}
+            </Typography>
           </Box>
           <Box>
             <MuiColorInput

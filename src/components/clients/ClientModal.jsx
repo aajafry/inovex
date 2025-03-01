@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Divider } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -6,7 +7,6 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import ClientForm from "./ClientForm";
 
-// eslint-disable-next-line react/prop-types
 export default function ClientModal({ OpenModal, OffModal }) {
   return (
     <Modal

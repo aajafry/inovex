@@ -18,11 +18,10 @@ import {
 import { Link } from "react-router-dom";
 
 export default function ServiceCard({ service }) {
-
   return (
     <Card>
       <CardHeader
-        title={ service.name }
+        title={service.name}
         titleTypographyProps={{ variant: "h6" }}
         className=" py-4 px-2"
         action={
@@ -36,19 +35,19 @@ export default function ServiceCard({ service }) {
         component="img"
         className=" h-40"
         image={service?.attachment}
-        alt={ service.name }
+        alt={service.name}
       />
 
       <CardContent>
         <Typography variant="subtitle2" color="text.secondary" className="mb-4">
-        <div
-          dangerouslySetInnerHTML={{__html: service.brif.slice(0, 70)}}
-        />
+          <div
+            dangerouslySetInnerHTML={{ __html: service.brif.slice(0, 70) }}
+          />
         </Typography>
         <Paper elevation={0} className=" inline-flex items-center text-nowrap">
           <Box className=" inline-flex">
             <AccessTimeIcon className="mx-1" />
-            <Typography>{ service.duration }</Typography>
+            <Typography>{service.duration}</Typography>
           </Box>
           <Box className=" inline-flex">
             <ReceiptIcon className="mx-1" />

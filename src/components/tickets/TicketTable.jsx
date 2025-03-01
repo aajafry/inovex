@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { TicketColumns } from "../../apps/DataStorage";
 import StripedDataGrid from "../commons/StripedDataGrid";
 
-export default function TicketTable({tickets}) {
-  const navigate = useNavigate(); 
+export default function TicketTable({ tickets }) {
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -39,8 +39,8 @@ export default function TicketTable({tickets}) {
           navigate(`/ticketPreview/${params.row._id}`, { state: params.row });
         }}
         sx={{
-          '& .MuiTablePagination-root': {
-            color: 'primary.main',
+          "& .MuiTablePagination-root": {
+            color: "primary.main",
           },
         }}
         pageSizeOptions={[5, 10, 15, 20]}

@@ -13,13 +13,12 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import moment from 'moment';
+import moment from "moment";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import useSWR from 'swr';
+import useSWR from "swr";
 import PreviewHeader from "../components/commons/PreviewHeader";
 import { fetcher } from "../utility/fetcher";
-
 
 const URL = process.env.COMPANY_ENDPOINT;
 
@@ -28,9 +27,13 @@ export default function InvoicePreview() {
 
   const authToken = useSelector((state) => state.authToken.token);
 
-  const { data: company, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
+  const {
+    data: company,
+    error,
+    isLoading,
+  } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken));
 
-  const note = <Box>{state?.note}</Box>
+  const note = <Box>{state?.note}</Box>;
 
   return (
     <Box>
@@ -41,28 +44,38 @@ export default function InvoicePreview() {
             {" "}
             Invoice ID{" "}
           </Typography>
-          <Typography variant="body2"> {state?._id.slice(0,6)} </Typography>
+          <Typography variant="body2"> {state?._id.slice(0, 6)} </Typography>
         </Box>
 
         <Box className=" mx-4 flex justify-between items-end">
           <Box className="text-left">
             <Typography variant="body1"> Billed To </Typography>
             <Typography variant="body1">{state?.client?.name}</Typography>
-            <Typography variant="body1">{state?.client?.city}, {state?.client?.state}</Typography>
-            <Typography variant="body1">{state?.client?.country}, {state?.client?.zip}</Typography>
+            <Typography variant="body1">
+              {state?.client?.city}, {state?.client?.state}
+            </Typography>
+            <Typography variant="body1">
+              {state?.client?.country}, {state?.client?.zip}
+            </Typography>
           </Box>
 
           <Box className="flex flex-col items-end">
             <Avatar>
-              <img src={company?.company[0]?.logo} alt={company?.company[0]?.name} className="object-cover" />
+              <img
+                src={company?.company[0]?.logo}
+                alt={company?.company[0]?.name}
+                className="object-cover"
+              />
             </Avatar>
             <Typography variant="body1">{company?.company[0]?.name}</Typography>
-            <Typography variant="body1">{company?.company[0]?.email}</Typography>
-            <Typography variant="body1"> 
+            <Typography variant="body1">
+              {company?.company[0]?.email}
+            </Typography>
+            <Typography variant="body1">
               {company?.company[0]?.city + " " + company?.company[0]?.state}
             </Typography>
-            <Typography variant="body1"> 
-              {company?.company[0]?.country + " " + company?.company[0]?.zip} 
+            <Typography variant="body1">
+              {company?.company[0]?.country + " " + company?.company[0]?.zip}
             </Typography>
           </Box>
         </Box>
@@ -85,21 +98,27 @@ export default function InvoicePreview() {
               {" "}
               Order ID{" "}
             </Typography>
-            <Typography variant="body2">{state?.order?._id.slice(0,6)}</Typography>
+            <Typography variant="body2">
+              {state?.order?._id.slice(0, 6)}
+            </Typography>
           </Grid>
           <Grid item xs={3} className=" border-e-2">
             <Typography variant="button" className=" font-semibold">
               {" "}
               Created Date{" "}
             </Typography>
-            <Typography variant="body2">{moment(state?.createdAt).format('MMM DD, YYYY')}</Typography>
+            <Typography variant="body2">
+              {moment(state?.createdAt).format("MMM DD, YYYY")}
+            </Typography>
           </Grid>
           <Grid item xs={3} className=" ">
             <Typography variant="button" className=" font-semibold">
               {" "}
               Due Date{" "}
             </Typography>
-            <Typography variant="body2">{moment(state?.createdAt).format('MMM DD, YYYY')}</Typography>
+            <Typography variant="body2">
+              {moment(state?.createdAt).format("MMM DD, YYYY")}
+            </Typography>
           </Grid>
         </Grid>
 
@@ -169,7 +188,7 @@ export default function InvoicePreview() {
           <Typography variant="button" className=" font-semibold">
             Note
           </Typography>
-          <Divider  className=" my-2"/>
+          <Divider className=" my-2" />
           {note}
         </Box>
       </Paper>

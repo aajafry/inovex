@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ClientColumns } from "../../apps/DataStorage";
 import StripedDataGrid from "../commons/StripedDataGrid";
 
-export default function ClientTable({clients}) {
+export default function ClientTable({ clients }) {
   const navigate = useNavigate();
 
   return (
@@ -37,8 +37,8 @@ export default function ClientTable({clients}) {
           navigate(`/clientPreview/${params.row._id}`, { state: params.row });
         }}
         sx={{
-          '& .MuiTablePagination-root': {
-            color: 'primary.main',
+          "& .MuiTablePagination-root": {
+            color: "primary.main",
           },
         }}
         pageSizeOptions={[5, 10, 15, 20]}

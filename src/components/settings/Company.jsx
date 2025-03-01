@@ -22,7 +22,11 @@ export default function Company() {
           register={register}
           required
         />
-        {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+        {errors.name && (
+          <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+            This field is required
+          </Typography>
+        )}
 
         <FormInput
           label="Company Email"
@@ -30,7 +34,11 @@ export default function Company() {
           register={register}
           required
         />
-        {errors.email && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+        {errors.email && (
+          <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+            This field is required
+          </Typography>
+        )}
 
         <Typography variant="subtitle2" component="h6">
           Company Logo
@@ -41,7 +49,11 @@ export default function Company() {
           isRequired={false}
           SetDropzone={setValue}
         />
-        {errors.logo && <Typography variant="subtitle2" sx={{color: 'error.main'}}>This field is required</Typography>}
+        {errors.logo && (
+          <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+            This field is required
+          </Typography>
+        )}
 
         <Typography variant="subtitle2" component="h6">
           Company Address

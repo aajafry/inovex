@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { QuotationColumns } from "../../apps/DataStorage";
 import StripedDataGrid from "../commons/StripedDataGrid";
 
-export default function QuotationTable({quotations}) {
+export default function QuotationTable({ quotations }) {
   const navigate = useNavigate();
 
   return (
@@ -33,11 +33,13 @@ export default function QuotationTable({quotations}) {
         }
         getRowId={(row) => row._id}
         onRowClick={(params) => {
-          navigate(`/quotationPreview/${params.row._id}`, { state: params.row });
+          navigate(`/quotationPreview/${params.row._id}`, {
+            state: params.row,
+          });
         }}
         sx={{
-          '& .MuiTablePagination-root': {
-            color: 'primary.main',
+          "& .MuiTablePagination-root": {
+            color: "primary.main",
           },
         }}
         pageSizeOptions={[5, 10, 15, 20]}

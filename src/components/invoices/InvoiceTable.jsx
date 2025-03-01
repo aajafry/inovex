@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { InvoiceColumns } from "../../apps/DataStorage";
 import StripedDataGrid from "../commons/StripedDataGrid";
 
-export default function InvoiceTable({invoices} ) {
+export default function InvoiceTable({ invoices }) {
   const navigate = useNavigate();
 
   return (
@@ -37,8 +37,8 @@ export default function InvoiceTable({invoices} ) {
           // console.log(params.row);
         }}
         sx={{
-          '& .MuiTablePagination-root': {
-            color: 'primary.main',
+          "& .MuiTablePagination-root": {
+            color: "primary.main",
           },
         }}
         pageSizeOptions={[5, 10, 15, 20]}

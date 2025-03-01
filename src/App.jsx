@@ -22,7 +22,7 @@ import {
   Settings,
   Signup,
   TicketPreview,
-  Tickets
+  Tickets,
 } from "../src/pages/Index";
 import "./App.css";
 import { withProtectedLayout } from "./components/layout/withProtectedLayout";
@@ -31,15 +31,13 @@ import themeStore from "./features/theme/themeStore";
 function App() {
   let theme = themeStore();
   return (
-    
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-          
-          
+
           <Route path="/" element={withProtectedLayout(Dashboard)} />
           <Route path="/dashboard" element={withProtectedLayout(Dashboard)} />
 
@@ -74,7 +72,10 @@ function App() {
           />
 
           <Route path="/employees" element={withProtectedLayout(Employees)} />
-          <Route path="/employee/:slug" element={withProtectedLayout(EmployeePreview)} />
+          <Route
+            path="/employee/:slug"
+            element={withProtectedLayout(EmployeePreview)}
+          />
 
           <Route path="/invoices" element={withProtectedLayout(Invoices)} />
           <Route
@@ -82,7 +83,10 @@ function App() {
             element={withProtectedLayout(InvoicePreview)}
           />
 
-          <Route path="/integrations" element={withProtectedLayout(Integrations)} />
+          <Route
+            path="/integrations"
+            element={withProtectedLayout(Integrations)}
+          />
           <Route path="/files" element={withProtectedLayout(Files)} />
 
           <Route path="/settings" element={withProtectedLayout(Settings)} />

@@ -3,7 +3,7 @@
 import { Paper } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import HeadingTitle from "../components/commons/HeadingTitle";
 import ModalCTAbtn from "../components/commons/ModalCTAbtn";
 import TicketModal from "../components/tickets/TicketModal";
@@ -17,9 +17,13 @@ export default function Tickets() {
 
   const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: tickets, error, isLoading } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken?.access_token))
+  const {
+    data: tickets,
+    error,
+    isLoading,
+  } = useSWR([URL, authToken], ([URL, authToken]) => fetcher(URL, authToken));
   const ticketsData = tickets?.tickets;
-  
+
   return (
     <>
       <Paper elevation={2} className="w-full flex justify-between items-center">

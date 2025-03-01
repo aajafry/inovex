@@ -20,29 +20,24 @@ export default function AvatarMenus({ anchorElUser, handleCloseUserMenu }) {
       open={Boolean(anchorElUser)}
       onClose={handleCloseUserMenu}
     >
-
-       {/* <Link to={"/profile"}>
+      {/* <Link to={"/profile"}>
           <MenuItem onClick={handleCloseUserMenu}>
             <Typography className="text-center">
               Profile
             </Typography>
           </MenuItem>
         </Link> */}
-        
-       <Link to={"/dashboard"}>
-          <MenuItem onClick={handleCloseUserMenu}>
-            <Typography className="text-center">
-              Dashboard
-            </Typography>
-          </MenuItem>
-        </Link>
-       <Link to={"/logout"}>
-          <MenuItem onClick={handleCloseUserMenu}>
-            <Typography className="text-center">
-              Logout
-            </Typography>
-          </MenuItem>
-        </Link>
+
+      <Link to={"/dashboard"}>
+        <MenuItem onClick={handleCloseUserMenu}>
+          <Typography className="text-center">Dashboard</Typography>
+        </MenuItem>
+      </Link>
+      <Link to={"/logout"}>
+        <MenuItem onClick={handleCloseUserMenu}>
+          <Typography className="text-center">Logout</Typography>
+        </MenuItem>
+      </Link>
     </Menu>
   );
 }

@@ -17,27 +17,22 @@ import PreviewThumbnail from "../components/commons/PreviewThumbnail";
 
 export default function TicketPreview() {
   let { state } = useLocation();
-  
-  const brif = <p
-    dangerouslySetInnerHTML={{__html: state?.brif}}
-  />
+
+  const brif = <p dangerouslySetInnerHTML={{ __html: state?.brif }} />;
   return (
     <Box>
-      <PreviewHeader label={`Ticket ID: ${state?._id.slice(0,6)}`} />
-      <PreviewThumbnail src={img3} alt={state?._id.slice(0,6)} />
+      <PreviewHeader label={`Ticket ID: ${state?._id.slice(0, 6)}`} />
+      <PreviewThumbnail src={img3} alt={state?._id.slice(0, 6)} />
       <Box className="mt-4 pr-4 mb-28">
         <Grid container spacing={2} className="w-full m-0">
           <Grid item xs={8}>
-            <PreviewBrif
-              title={state?.subject}
-              body={brif}
-            />
+            <PreviewBrif title={state?.subject} body={brif} />
           </Grid>
           <Grid item xs={4}>
-            <Paper 
-              elevation={2} 
+            <Paper
+              elevation={2}
               className="p-4"
-              sx={{ backgroundColor: "secondary.main", color: "info.main"}}
+              sx={{ backgroundColor: "secondary.main", color: "info.main" }}
             >
               Properties
               <List>

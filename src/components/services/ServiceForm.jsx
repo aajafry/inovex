@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
 import { serviceSchema } from "../../utility/zodSchema/serviceSchema";
 import FormInput from "../commons/FormInput";
 import FormSelect from "../commons/FormSelect";
@@ -15,8 +15,7 @@ import InputDropzone from "../commons/InputDropzone";
 import InputRichText from "../commons/InputRichText";
 import { toast } from "react-toastify";
 
-
-const PricingOption = ["Pay with Invoice","Pay with Instalment"];
+const PricingOption = ["Pay with Invoice", "Pay with Instalment"];
 
 const URL = `${process.env.SERVICES_ENDPOINT}/create`;
 
@@ -28,13 +27,13 @@ export default function ServiceForm() {
     watch,
     setValue,
     formState: { errors },
-  } = useForm({ 
-    resolver: zodResolver(serviceSchema)
-   });
+  } = useForm({
+    resolver: zodResolver(serviceSchema),
+  });
 
   const authToken = useSelector((state) => state?.authToken?.token);
 
-  const { data: serviceData, error, mutate } = useSWR([URL, authToken]); 
+  const { data: serviceData, error, mutate } = useSWR([URL, authToken]);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -49,7 +48,7 @@ export default function ServiceForm() {
       const response = await axios.post(URL, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${authToken?.access_token}`,
+          Authorization: `Bearer ${authToken}`,
         },
       });
       // If successful, update the data with SWR
@@ -71,14 +70,22 @@ export default function ServiceForm() {
         register={register}
         // required
       />
-      {errors.name && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.name.message}</Typography>}
+      {errors.name && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.name.message}
+        </Typography>
+      )}
 
       <Typography variant="subtitle2" component="h6">
         Description
       </Typography>
 
       <InputRichText InputWatch={watch} InputSetValue={setValue} />
-      {errors.brif && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.brif.message}</Typography>}
+      {errors.brif && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.brif.message}
+        </Typography>
+      )}
 
       <Typography variant="subtitle2">Upload Thumn! Image </Typography>
       <InputDropzone
@@ -87,7 +94,11 @@ export default function ServiceForm() {
         // isRequired={false}
         setDropzone={setValue}
       />
-      {errors.attachment && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.attachment.message}</Typography>}
+      {errors.attachment && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.attachment.message}
+        </Typography>
+      )}
 
       <FormSelect
         label="Pricing"
@@ -96,7 +107,11 @@ export default function ServiceForm() {
         // required
         ValuesOptions={PricingOption}
       />
-      {errors.paymentTerm && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.paymentTerm.message}</Typography>}
+      {errors.paymentTerm && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.paymentTerm.message}
+        </Typography>
+      )}
 
       <FormInput
         label="USD"
@@ -105,7 +120,11 @@ export default function ServiceForm() {
         register={register}
         // required
       />
-      {errors.price && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.price.message}</Typography>}
+      {errors.price && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.price.message}
+        </Typography>
+      )}
 
       <FormInput
         label="Duration"
@@ -114,7 +133,11 @@ export default function ServiceForm() {
         register={register}
         // required
       />
-      {errors.duration && <Typography variant="subtitle2" sx={{color: 'error.main'}}>{errors.duration.message}</Typography>}
+      {errors.duration && (
+        <Typography variant="subtitle2" sx={{ color: "error.main" }}>
+          {errors.duration.message}
+        </Typography>
+      )}
 
       <FormSubmitBtn isdisabled={isFormSubmited} />
     </form>

@@ -10,12 +10,9 @@ export default function ClientPreview() {
   let { state } = useLocation();
   return (
     <Box>
-      <HalfcutThumbnail name={ state?.name } bgImg={img2} ppImg={state?.image} />
-      <PreviewList title="Email" subtitle={ state?.email } />
-      <PreviewList
-        title="address"
-        subtitle={ state?.address }
-      />
+      <HalfcutThumbnail name={state?.name} bgImg={img2} ppImg={state?.image} />
+      <PreviewList title="Email" subtitle={state?.email} />
+      <PreviewList title="address" subtitle={state?.address} />
     </Box>
   );
 }

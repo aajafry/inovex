@@ -10,8 +10,8 @@ const ClientColumns = [
     editable: false,
     filterable: false,
     valueGetter: (params) => {
-      return params?.row?._id.slice(0,6);
-    }
+      return params?.row?._id.slice(0, 6);
+    },
   },
   {
     field: "name",
@@ -42,7 +42,7 @@ const ClientColumns = [
     flex: 1,
     valueGetter: (params) => {
       return moment(params?.row?.createdAt).format("MMM DD, YYYY");
-    }
+    },
   },
 ];
 
@@ -55,8 +55,8 @@ const OrderColumns = [
     editable: false,
     filterable: false,
     valueGetter: (params) => {
-      return params?.row?._id.slice(0,6);
-    }
+      return params?.row?._id.slice(0, 6);
+    },
   },
   {
     field: "client",
@@ -66,7 +66,7 @@ const OrderColumns = [
     flex: 1,
     valueGetter: (params) => {
       return params?.row?.client?.name;
-    }
+    },
   },
   {
     field: "service",
@@ -76,7 +76,7 @@ const OrderColumns = [
     flex: 1,
     valueGetter: (params) => {
       return params?.row?.service?.name;
-    }
+    },
   },
   {
     field: "status",
@@ -93,7 +93,7 @@ const OrderColumns = [
     flex: 1,
     valueGetter: (params) => {
       return moment(params?.row?.openedAt).format("MMM DD, YYYY");
-    }
+    },
   },
   {
     field: "completedAt",
@@ -103,7 +103,7 @@ const OrderColumns = [
     flex: 1,
     valueGetter: (params) => {
       return moment(params?.row?.completedAt).format("MMM DD, YYYY");
-    }
+    },
   },
 ];
 
@@ -116,8 +116,8 @@ const QuotationColumns = [
     editable: false,
     filterable: false,
     valueGetter: (params) => {
-      return params?.row?._id.slice(0,6);
-    }
+      return params?.row?._id.slice(0, 6);
+    },
   },
   {
     field: "client",
@@ -127,7 +127,7 @@ const QuotationColumns = [
     flex: 1,
     valueGetter: (params) => {
       return params?.row?.client?.name;
-    }
+    },
   },
   {
     field: "service",
@@ -137,7 +137,7 @@ const QuotationColumns = [
     flex: 1,
     valueGetter: (params) => {
       return params?.row?.service?.name;
-    }
+    },
   },
   {
     field: "quantity",
@@ -165,8 +165,8 @@ const EmployeeColumns = [
     filterable: false,
     hide: true,
     valueGetter: (params) => {
-      return params?.row?._id.slice(0,6);
-    }
+      return params?.row?._id.slice(0, 6);
+    },
   },
   {
     field: "name",
@@ -200,8 +200,8 @@ const TicketColumns = [
     editable: false,
     filterable: false,
     valueGetter: (params) => {
-      return params?.row?._id.slice(0,6);
-    }
+      return params?.row?._id.slice(0, 6);
+    },
   },
   {
     field: "client",
@@ -211,7 +211,7 @@ const TicketColumns = [
     flex: 1,
     valueGetter: (params) => {
       return params?.row?.client?.name;
-    }
+    },
   },
   {
     field: "order",
@@ -220,8 +220,8 @@ const TicketColumns = [
     type: "string",
     editable: false,
     valueGetter: (params) => {
-      return params?.row?.order?._id.slice(0,6);
-    }
+      return params?.row?.order?._id.slice(0, 6);
+    },
   },
   {
     field: "subject",
@@ -256,8 +256,8 @@ const InvoiceColumns = [
     filterable: false,
     flex: 1,
     valueGetter: (params) => {
-      return params?.row?._id.slice(0,6);
-    }
+      return params?.row?._id.slice(0, 6);
+    },
   },
   {
     field: "client",
@@ -267,7 +267,7 @@ const InvoiceColumns = [
     flex: 1,
     valueGetter: (params) => {
       return params?.row?.client?.name;
-    }
+    },
   },
   {
     field: "service",
@@ -277,7 +277,7 @@ const InvoiceColumns = [
     flex: 1,
     valueGetter: (params) => {
       return params?.row?.service?.name;
-    }
+    },
   },
   {
     field: "order",
@@ -287,8 +287,8 @@ const InvoiceColumns = [
     editable: false,
     flex: 1,
     valueGetter: (params) => {
-      return params?.row?.order?._id.slice(0,6);
-    }
+      return params?.row?.order?._id.slice(0, 6);
+    },
   },
   {
     field: "status",
@@ -305,10 +305,9 @@ const InvoiceColumns = [
     flex: 1,
     valueGetter: (params) => {
       return moment(params?.row?.createdAt).format("MMM DD, YYYY");
-    }
+    },
   },
 ];
-
 
 export {
   ClientColumns,
@@ -316,5 +315,5 @@ export {
   InvoiceColumns,
   OrderColumns,
   QuotationColumns,
-  TicketColumns
+  TicketColumns,
 };

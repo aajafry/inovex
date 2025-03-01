@@ -4,12 +4,10 @@ import OrdersTableWidget from "./OrdersTableWidget";
 import RevenueWidget from "./RevenueWidget";
 import TicketsTableWidget from "./TicketsTableWidget";
 
-
 export {
-    ClientWidget,
-    OrderWidget,
-    OrdersTableWidget,
-    RevenueWidget,
-    TicketsTableWidget
+  ClientWidget,
+  OrderWidget,
+  OrdersTableWidget,
+  RevenueWidget,
+  TicketsTableWidget,
 };
-
